@@ -5,9 +5,16 @@ app.set('view engine', 'ejs');
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+app.use(express.static('./public'));
 app.get('/', (req, res) => {
-  res.sendFile('./views/index.html', { root: __dirname });
+  res.render('index', { title: 'Home' });
+});
+app.get('/index', (req, res) => {
+  res.redirect('/');
+});
+app.get('/home', (req, res) => {
+  res.redirect('/');
 });
 app.get('/rockpaperscissor', (req, res) => {
-  res.sendFile('./views/rockpaperscissor.html', { root: __dirname });
+  res.render('rockpaperscissor', { title: 'Rock Paper Scissor' });
 });
