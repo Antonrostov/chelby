@@ -18,3 +18,6 @@ app.get('/home', (req, res) => {
 app.get('/rockpaperscissor', (req, res) => {
   res.render('rockpaperscissor', { title: 'Rock Paper Scissor' });
 });
+app.use((req, res) => {
+  res.status(404).render('404', { title: '404' });
+});

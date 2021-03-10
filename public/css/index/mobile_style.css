@@ -317,7 +317,6 @@ html {
 .newsletter {
   background-image: -webkit-gradient(linear, left top, left bottom, from(black), color-stop(10%, transparent), color-stop(90%, transparent), to(black)), url(/images/index/newsletter-bg.jpg);
   background-image: linear-gradient(black 0%, transparent 10%, transparent 90%, black 100%), url(/images/index/newsletter-bg.jpg);
-  text-align: left;
 }
 .newsletter h3 {
   font-size: 16px;
@@ -366,7 +365,7 @@ html {
 }
 .navigation {
   background-color: black;
-  height: 40vh;
+  height: 30vh;
   padding: 0;
 }
 .navigation a {
@@ -520,13 +519,13 @@ html {
 .navigation hr {
   border-top: 1px solid grey;
 }
-.navigation .footer p {
+.footer p {
   font-size: 14px;
   color: grey;
 }
-.navigation .footer .col-lg-6 {
+.footer .col-lg-6 {
   text-align: center;
 }
-.navigation .footer a {
+.footer a {
   margin: 0;
 }
