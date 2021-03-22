@@ -9,6 +9,8 @@ app.listen(port, () => {
 });
 app.use(morgan('tiny'));
 app.use(express.static('./public'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 app.use((req, res) => {
   res.status(404).render('404', { title: '404' });
