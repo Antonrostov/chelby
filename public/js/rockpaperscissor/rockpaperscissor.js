@@ -38,21 +38,19 @@ class Game {
     let i = 0;
     setInterval(() => {
       if (new Date().getTime() - start >= 1000) {
-        clearInterval;
-        return;
+        return clearInterval;
       }
       this.compBox[i++].style.backgroundColor = '#c4c4c4';
-      if (i == this.compBox.length) i = 0;
+      if (i === this.compBox.length) i = 0;
     }, 50);
     setTimeout(() => {
       setInterval(() => {
         if (new Date().getTime() - start >= 1200) {
-          clearInterval;
-          return;
+          return clearInterval;
         }
         const compBox = document.querySelectorAll('.greyBox.compImage');
         compBox[i++].style.backgroundColor = '#9c835f';
-        if (i == compBox.length) i = 0;
+        if (i === compBox.length) i = 0;
       }, 50);
     }, 50);
   }
@@ -97,9 +95,6 @@ class Player {
   }
 }
 class Comp extends Player {
-  constructor() {
-    super();
-  }
   getCompChoice() {
     const choice = Math.random();
     if (choice <= 1 / 3) this.choice = 'rock';
@@ -116,7 +111,7 @@ document.querySelectorAll('.contentImage .player').forEach((playerimg) => {
       const playerChoice = playerimg.className.substr(7, 7);
       p1.getPlayerChoice(playerChoice);
       game.startGame(p1, cpu);
-    } else alert('Please reset the game first.');
+    }
   });
 });
 document
