@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<%- include('./partials/gameHead.ejs') %> 
+	<%- include('./partials/gameHead.ejs') %>
 	<link rel="stylesheet" href="/css/rockpaperscissor/game_style.css">
 </head>
 <body>
@@ -29,6 +29,11 @@
 						</div>
 					</a>
 				</div>
+				<div class="col-lg-5 my-auto">
+					<a href="/gameHistory">
+						<button class="btn btn-warning gameHistory">SEE GAME HISTORY</button>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -44,15 +49,18 @@
 			</div>
 			<div class="row contentImage">
 				<div class="col-4 col-sm-3 offset-sm-1 d-flex">
-					<div class="m-auto greyBox playerImage px-4 py-3"><img src="/images/rockpaperscissor/batu.png" class="player rock"></div>
+					<div class="m-auto greyBox playerImage px-4 py-3"><img src="/images/rockpaperscissor/batu.png"
+							class="player rock"></div>
 				</div>
 				<div class="col-4 col-sm-3 offset-2 offset-sm-4 d-flex">
-					<div class="m-auto greyBox compImage px-4 py-3"><img src="/images/rockpaperscissor/batu.png" class="compRock"></div>
+					<div class="m-auto greyBox compImage px-4 py-3"><img src="/images/rockpaperscissor/batu.png" class="compRock">
+					</div>
 				</div>
 			</div>
 			<div class="row align-items-center contentImage">
 				<div class="col-4 col-sm-3 offset-sm-1 d-flex">
-					<div class="m-auto greyBox playerImage px-4 py-3"><img src="/images/rockpaperscissor/kertas.png" class="player paper"></div>
+					<div class="m-auto greyBox playerImage px-4 py-3"><img src="/images/rockpaperscissor/kertas.png"
+							class="player paper"></div>
 				</div>
 				<div class="col-2 col-sm-2 offset-sm-1 d-flex p-0 versus">
 					<div class="m-auto p-0">
@@ -63,16 +71,19 @@
 					</div>
 				</div>
 				<div class="col-4 col-sm-3 offset-sm-1 d-flex">
-					<div class="m-auto greyBox compImage px-4 py-3"><img src="/images/rockpaperscissor/kertas.png" class="compPaper"></div>
+					<div class="m-auto greyBox compImage px-4 py-3"><img src="/images/rockpaperscissor/kertas.png"
+							class="compPaper"></div>
 				</div>
 			</div>
 			<div class="row contentImage">
 				<div class="col-4 col-sm-3 offset-sm-1 d-flex">
-					<div class="m-auto greyBox playerImage px-4 py-3"><img src="/images/rockpaperscissor/gunting.png" class="player scissor">
+					<div class="m-auto greyBox playerImage px-4 py-3"><img src="/images/rockpaperscissor/gunting.png"
+							class="player scissor">
 					</div>
 				</div>
 				<div class="col-4 col-sm-3 offset-2 offset-sm-4 d-flex">
-					<div class="m-auto greyBox compImage px-4 py-3"><img src="/images/rockpaperscissor/gunting.png" class="compScissor"></div>
+					<div class="m-auto greyBox compImage px-4 py-3"><img src="/images/rockpaperscissor/gunting.png"
+							class="compScissor"></div>
 				</div>
 			</div>
 			<div class="row my-2">
@@ -82,7 +93,7 @@
 			</div>
 		</div>
 	</div>
+	<script src="/js/rockpaperscissor/rockpaperscissor.js"></script>
+	<%- include('./partials/bootstrapScripts.ejs') %>
 </body>
-<script src="/js/rockpaperscissor/rockpaperscissor.js"></script>
-<%- include('./partials/bootstrapScripts.ejs') %> 
 </html>
