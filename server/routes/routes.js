@@ -9,5 +9,7 @@ router.get('/home', (req, res) => {
   res.redirect('/');
 });
 router.get('/rockpaperscissor', controller.rps_index);
+router.get('/gameHistory', controller.game_history);
 router.post('/rockpaperscissor', controller.rps_history);
+router.delete('/gameHistory', controller.delete_game_history);
 export default router;

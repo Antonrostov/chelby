@@ -7,6 +7,9 @@ class Controller {
   static rps_index = (req, res) => {
     res.render('rockpaperscissor', { title: 'Rock Paper Scissor' });
   };
+  static game_history = (req, res) => {
+    res.render('game_history', { title: 'Game History', history: gameHistory });
+  }
   static rps_history = (req, res) => {
     if (!req.body['player choice'] || !req.body['comp choice'] || !req.body.result) {
       return res.status(401).send({ error: true, message: 'Field missing in request body.' });
@@ -19,5 +22,21 @@ class Controller {
       () => res.status(200).json({ message: 'Successfully saved game history' }),
     );
   };
+  static delete_game_history = (req, res) => {
+    const { time } = req.body;
+    const findObj = gameHistory.find((elm) => elm.time === parseInt(time, 10));
+    console.log(findObj);
+    for (let i = 0; i < gameHistory.length; i += 1) {
+      if (gameHistory[i].time === parseInt(time, 10)) {
+        gameHistory.splice(i, 1);
+      }
+    }
+    return fs.writeFile(
+      `${__dirname}/../models/gameHistory.json`,
+      JSON.stringify(gameHistory),
+      'utf-8',
+      () => res.status(200),
+    );
+  }
 }
 export default Controller;
