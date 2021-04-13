@@ -10,7 +10,6 @@ app.set('views', path.join(__dirname, '/views'));
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
-app.use(morgan('tiny'));
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
