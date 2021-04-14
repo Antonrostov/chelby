@@ -1,5 +1,5 @@
 import express from 'express';
-import morgan from 'morgan';
+import logger from 'morgan';
 import path from 'path';
 import routes from './routes/routes';
 import authRoutes from './routes/authRoutes';
@@ -10,6 +10,7 @@ app.set('views', path.join(__dirname, '/views'));
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+app.use(logger('dev'));
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

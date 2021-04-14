@@ -1,25 +1,39 @@
-import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 import { userGames, userGameBiodata } from '../models';
+import signupValidation from '../middlewares/validation/signupValidation';
 class authController {
   static getSignup = (req, res) => {
-    res.render('signup', { title: 'Sign Up' });
+    res.render('signup', { title: 'Sign Up', validateError: '' });
   };
   static postSignup = async (req, res) => {
     try {
+      const {
+        name, email, username, password, repeatPassword,
+      } = req.body;
+      const { error } = await signupValidation.validate({
+        name,
+        email,
+        username,
+        password,
+        repeatPassword,
+      });
+      if (error) return res.render('signup', { title: 'Sign Up', validateError: `${error.details[0].message}` });
+      const emailExist = await userGames.findOne({ where: { email } });
+      const usernameExist = await userGames.findOne({ where: { username } });
+      console.log(emailExist);
+      console.log(usernameExist);
+      if (emailExist) return res.render('signup', { title: 'Sign Up', validateError: 'Email is already signed up.' });
+      if (usernameExist) return res.render('signup', { title: 'Sign Up', validateError: 'Username is already taken.' });
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
-      const generatedUUID = uuidv4();
-      console.log(generatedUUID);
       await userGames.create({
-        userId: generatedUUID,
         email: req.body.email,
         username: req.body.username,
         password: hashedPassword,
-      });
-      await userGameBiodata.create({
-        userId: generatedUUID,
-        name: req.body.name,
       })
+        .then((data) => userGameBiodata.create({
+          userId: data.userId,
+          name: req.body.name,
+        }))
         .catch((e) => console.log(e));
       return res.status(201).redirect('/auth/login');
     } catch {
