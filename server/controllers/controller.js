@@ -1,7 +1,7 @@
 import fs from 'fs';
 class Controller {
   static homeIndex = (req, res) => {
-    res.render('index', { title: 'Home' });
+    res.render('index', { title: 'Home', login: false });
   };
   static rpsIndex = (req, res) => {
     res.render('rockpaperscissor', { title: 'Rock Paper Scissor' });

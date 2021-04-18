@@ -4,7 +4,7 @@ import path from 'path';
 import routes from './routes/routes';
 import authRoutes from './routes/authRoutes';
 const app = express();
-const port = 3000;
+const port = process.env.PORT_NUM;
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 app.listen(port, () => {

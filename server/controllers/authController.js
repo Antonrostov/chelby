@@ -4,7 +4,7 @@ import signupValidation from '../middlewares/validation/signupValidation';
 import loginValidation from '../middlewares/validation/loginValidation';
 class authController {
   static getSignup = (req, res) => {
-    res.render('signup', { title: 'Sign Up', validateError: '' });
+    res.render('signup', { title: 'Sign Up', login: false, validateError: '' });
   };
   static postSignup = async (req, res) => {
     try {
@@ -18,11 +18,11 @@ class authController {
         password,
         repeatPassword,
       });
-      if (error) return res.render('signup', { title: 'Sign Up', validateError: `${error.details[0].message}` });
+      if (error) return res.render('signup', { title: 'Sign Up', login: false, validateError: `${error.details[0].message}` });
       const emailExist = await userGames.findOne({ where: { email } });
-      if (emailExist) return res.render('signup', { title: 'Sign Up', validateError: 'Email is already signed up.' });
+      if (emailExist) return res.render('signup', { title: 'Sign Up', login: false, validateError: 'Email is already signed up.' });
       const usernameExist = await userGames.findOne({ where: { username } });
-      if (usernameExist) return res.render('signup', { title: 'Sign Up', validateError: 'Username is already taken.' });
+      if (usernameExist) return res.render('signup', { title: 'Sign Up', login: false, validateError: 'Username is already taken.' });
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       await userGames.create({
         email: req.body.email,
@@ -36,25 +36,28 @@ class authController {
         .catch((e) => console.log(e));
       return res.redirect('/auth/login');
     } catch {
-      return res.redirect('/auth/signup');
+      return res.redirect('/auth/signup', { login: false });
     }
   };
   static getLogin = (req, res) => {
-    res.render('login', { title: 'Login', validateError: '' });
+    res.render('login', { title: 'Login', login: false, validateError: '' });
   };
   static postLogin = async (req, res) => {
     try {
       const { username, password } = req.body;
       const { error } = await loginValidation.validate({ username, password });
-      if (error) return res.render('login', { title: 'Login', validateError: `${error.details[0].message}` });
+      if (error) return res.render('login', { title: 'Login', login: false, validateError: `${error.details[0].message}` });
       const validUsername = await userGames.findOne({ where: { username } });
-      if (!validUsername) return res.render('login', { title: 'Login', validateError: 'Username is wrong.' });
+      if (!validUsername) return res.render('login', { title: 'Login', login: false, validateError: 'Username is wrong.' });
       const validPassword = await bcrypt.compare(password, validUsername.password) || validUsername.password;
-      if (!validPassword) return res.render('login', { title: 'Login', validateError: 'Password is wrong.' });
-      return res.redirect('/');
+      if (!validPassword) return res.render('login', { title: 'Login', login: false, validateError: 'Password is wrong.' });
+      return res.render('index', { title: 'Home', login: true, username: validUsername.username });
     } catch {
-      return res.redirect('/auth/login');
+      return res.redirect('/auth/login', { login: false });
     }
   };
+  static logout = (req, res) => {
+    return res.redirect('/auth/login');
+  }
 }
 export default authController;
