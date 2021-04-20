@@ -1,4 +1,5 @@
 import express from 'express';
+import session from 'express-session';
 import logger from 'morgan';
 import path from 'path';
 import routes from './routes/routes';
@@ -14,6 +15,17 @@ app.use(logger('dev'));
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(session({
+  name: process.env.SESSION_NAME,
+  resave: false,
+  saveUninitialized: false,
+  secret: process.env.SESSION_SECRET,
+  cookie: {
+    maxAge: 2 * 60 * 60 * 1000, 
+    sameSite: true,
+    secure: false,
+  },
+}));
 app.use(routes);
 app.use('/auth', authRoutes);
 app.use((req, res) => {
