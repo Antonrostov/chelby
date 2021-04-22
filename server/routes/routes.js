@@ -1,6 +1,8 @@
 import express from 'express';
 import blockUnauthenticated from '../middlewares/authentication/blockUnauthenticated';
 import controller from '../controllers/controller';
+import userController from '../controllers/userController';
+import gameController from '../controllers/gameController';
 const router = express.Router();
 router.get('/', controller.homeIndex);
 router.get('/index', (req, res) => {
@@ -9,8 +11,9 @@ router.get('/index', (req, res) => {
 router.get('/home', (req, res) => {
   res.redirect('/');
 });
-router.get('/rockpaperscissor', blockUnauthenticated, controller.rpsIndex);
-router.get('/gameHistory', blockUnauthenticated, controller.gameHistory);
-router.post('/rockpaperscissor', blockUnauthenticated, controller.rpsHistory);
-router.delete('/gameHistory', blockUnauthenticated, controller.deleteGameHistory);
+router.get('/profile', blockUnauthenticated, userController.getProfile);
+router.get('/rockpaperscissor', blockUnauthenticated, gameController.rpsIndex);
+router.post('/rockpaperscissor', blockUnauthenticated, gameController.rpsHistory);
+router.get('/gameHistory', blockUnauthenticated, gameController.gameHistory);
+router.delete('/gameHistory', blockUnauthenticated, gameController.deleteGameHistory);
 export default router;
