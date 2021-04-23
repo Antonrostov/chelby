@@ -11,9 +11,9 @@ router.get('/index', (req, res) => {
 router.get('/home', (req, res) => {
   res.redirect('/');
 });
-router.get('/profile', blockUnauthenticated, userController.getProfile);
+router.get('/profile', blockUnauthenticated, userController.getProfile)
 router.get('/rockpaperscissor', blockUnauthenticated, gameController.rpsIndex);
-router.post('/rockpaperscissor', blockUnauthenticated, gameController.rpsHistory);
 router.get('/gameHistory', blockUnauthenticated, gameController.gameHistory);
+router.post('/rockpaperscissor', blockUnauthenticated, gameController.rpsHistory);
 router.delete('/gameHistory', blockUnauthenticated, gameController.deleteGameHistory);
 export default router;

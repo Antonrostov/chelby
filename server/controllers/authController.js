@@ -21,7 +21,7 @@ class authController {
       });
       if (error) return res.render('signup', { title: 'Sign Up', login, validateError: `${error.details[0].message}` });
       const emailExist = await userGames.findOne({ where: { email } });
-      if (emailExist) return res.render('signup', { title: 'Sign Up', login, validateError: 'Email is already signed up.' });
+      if (emailExist) return res.render('signup', { title: 'Sign Up', login, validateError: 'Email is already taken.' });
       const usernameExist = await userGames.findOne({ where: { username } });
       if (usernameExist) return res.render('signup', { title: 'Sign Up', login, validateError: 'Username is already taken.' });
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
