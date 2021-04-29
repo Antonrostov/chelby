@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import logger from 'morgan';
 import session from 'express-session';
+import methodOverride from 'method-override'
 import routes from './routes/routes';
 import authRoutes from './routes/authRoutes';
 const app = express();
@@ -26,6 +27,7 @@ app.use(session({
     secure: false,
   },
 }));
+app.use(methodOverride('_method'));
 app.use(routes);
 app.use('/auth', authRoutes);
 app.use((req, res) => {

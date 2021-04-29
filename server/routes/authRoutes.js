@@ -7,5 +7,5 @@ authRouter.get('/signup', blockAuthenticated, authController.getSignup);
 authRouter.post('/signup', blockAuthenticated, authController.postSignup);
 authRouter.get('/login', blockAuthenticated, authController.getLogin);
 authRouter.post('/login', blockAuthenticated, authController.postLogin);
-authRouter.post('/logout', blockUnauthenticated, authController.logout);
+authRouter.delete('/logout', blockUnauthenticated, authController.logout);
 export default authRouter;
