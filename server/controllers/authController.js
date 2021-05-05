@@ -1,7 +1,5 @@
 import bcrypt from 'bcrypt';
 import { userGames, userGameBiodata } from '../models';
-import signupValidation from '../middlewares/validation/signupValidation';
-import loginValidation from '../middlewares/validation/loginValidation';
 import checkUserId from '../middlewares/authentication/checkUserId';
 class authController {
   static getSignup = (req, res) => {
@@ -11,17 +9,7 @@ class authController {
   static postSignup = async (req, res) => {
     const login = checkUserId(req.session);
     try {
-      const {
-        name, email, username, password, repeatPassword,
-      } = req.body;
-      const { error } = await signupValidation.validate({
-        name,
-        email,
-        username,
-        password,
-        repeatPassword,
-      });
-      if (error) return res.render('signup', { title: 'Sign Up', login, validateError: `${error.details[0].message}` });
+      const { email, username } = req.body;
       const emailExist = await userGames.findOne({ where: { email } });
       if (emailExist) return res.render('signup', { title: 'Sign Up', login, validateError: 'Email is already taken.' });
       const usernameExist = await userGames.findOne({ where: { username } });
@@ -50,12 +38,6 @@ class authController {
     const login = checkUserId(req.session);
     try {
       const { username, password } = req.body;
-      const { error } = await loginValidation.validate({ username, password });
-      if (error) {
-        return res.render('login', {
-          title: 'Login', login, validateError: `${error.details[0].message}`,
-        });
-      }
       const validUsername = await userGames.findOne({ where: { username } });
       if (!validUsername) {
         return res.render('login', {
