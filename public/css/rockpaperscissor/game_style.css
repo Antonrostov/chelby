@@ -25,7 +25,6 @@ body, html {
 	text-align: center !important;
 }
 .gameContent .row div h3 {
-	text-transform: uppercase;
 	font-weight: bold;
 	font-size: 20px;
 }

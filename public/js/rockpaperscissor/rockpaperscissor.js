@@ -66,13 +66,11 @@ class Game {
   }
   sendHistory(player, comp) {
     const xhr = new XMLHttpRequest();
-    const time = new Date().getTime();
     xhr.open('POST', '/rockpaperscissor');
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     const msg = JSON.stringify({
-      time: Math.floor(time / 1000),
-      'player choice': player.choice.toUpperCase(),
-      'comp choice': comp.choice.toUpperCase(),
+      player_choice: player.choice,
+      comp_choice: comp.choice,
       result: this.result,
     });
     xhr.send(msg);

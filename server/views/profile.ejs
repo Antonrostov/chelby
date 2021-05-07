@@ -51,6 +51,9 @@
           <a href="/profile/changePassword" class="d-inline-block">
             <button type="submit" class="btn btn-sm btn-warning changePassword" id="changePassword"><strong>CHANGE PASSWORD</strong></button>
           </a>
+          <form action="/profile/deleteUser?_method=DELETE" method="POST" class="d-inline-block">
+            <button type="submit" class="btn btn-sm btn-danger deleteUser" id="deleteUser"><strong>DELETE ALL USER DATA</strong></button>
+          </form>
         </div>
       </div>
     </div>
@@ -59,5 +62,7 @@
   <%- include('./partials/footer.ejs') %>
   </div>
 </body>
+<script>
+</script>
 <%- include('./partials/bootstrapScripts.ejs') %>
 </html>
