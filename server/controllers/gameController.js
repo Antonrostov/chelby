@@ -26,7 +26,7 @@ class gameController {
         comp_choice,
         result,
       }).catch((e) => console.log(e));
-      return res.status(200).json({ message: 'OK' });
+      return res.status(201);
     } catch {
       return res.redirect('/rockpaperscissor');
     }
@@ -34,7 +34,8 @@ class gameController {
   static deleteGameHistory = async (req, res) => {
     try {
       const { historyId } = req.body;
-      await userGameHistories.destroy({ where: { historyId } }).catch((e) => console.log(e));
+      await userGameHistories.destroy({ where: { historyId } })
+        .catch((e) => console.log(e));
       return res.redirect('/gameHistory');
     } catch {
       return res.redirect('/rockpaperscissor');
