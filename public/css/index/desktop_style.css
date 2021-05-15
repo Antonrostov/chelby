@@ -77,13 +77,4 @@
   .newsletter h1 {
     font-size: 44px;
   }
-  .navigation {
-    height: 17vh;
-  }
-  .footer .col-lg-6 {
-    text-align: right !important;
-  }
-  .footer .col-lg-4 {
-    text-align: left;
-  }
 }
