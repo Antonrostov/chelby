@@ -7,7 +7,9 @@ import methodOverride from 'method-override';
 import routes from './routes/routes';
 import authRoutes from './routes/authRoutes';
 const app = express();
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false,
+}));
 const port = process.env.PORT_NUM;
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));

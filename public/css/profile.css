@@ -5,6 +5,10 @@ html {
   font-family: "Open Sans", sans-serif;
   text-decoration: none;
 }
+body.modal-open{
+  padding-right: 0px !important;
+  overflow: visible !important;
+}
 .jumbotron {
   background-size: cover;
   background-position: center;
@@ -16,6 +20,9 @@ html {
 .profile {
   background-image: -webkit-gradient(linear, left top, left bottom, from(black), color-stop(10%, transparent), color-stop(90%, transparent), to(black)), url(/images/index/profile.jpg);
   background-image: linear-gradient(black 0%, transparent 10%, transparent 90%, black 100%), url(/images/index/profile.jpg);
+}
+#deleteConfirmation .modal-title, #deleteConfirmation .modal-body {
+  color: black;
 }
 .footer p {
   font-size: 14px;
