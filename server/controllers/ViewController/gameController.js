@@ -1,4 +1,4 @@
-import { userGameHistories } from '../models';
+import { userGameHistories } from '../../models';
 class gameController {
   static rpsIndex = (req, res) => {
     res.render('rockpaperscissor', { title: 'Rock Paper Scissor', username: req.session.username });

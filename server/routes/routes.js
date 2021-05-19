@@ -2,9 +2,9 @@ import express from 'express';
 import blockUnauthenticated from '../middlewares/authentication/blockUnauthenticated';
 import changePasswordValidation from '../middlewares/validation/changePasswordValidation';
 import editProfileValidation from '../middlewares/validation/editProfileValidation';
-import controller from '../controllers/controller';
-import userController from '../controllers/userController';
-import gameController from '../controllers/gameController';
+import controller from '../controllers/ViewController/controller';
+import userController from '../controllers/ViewController/userController';
+import gameController from '../controllers/ViewController/gameController';
 const router = express.Router();
 router.get('/', controller.homeIndex);
 router.get('/index', (req, res) => {

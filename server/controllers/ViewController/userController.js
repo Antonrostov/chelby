@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
-import { userGames, userGameBiodata } from '../models';
-import checkUserId from '../middlewares/authentication/checkUserId';
+import { userGames, userGameBiodata } from '../../models';
+import checkUserId from '../../middlewares/authentication/checkUserId';
 class userController {
   static getProfile = async (req, res) => {
     const login = checkUserId(req.session);

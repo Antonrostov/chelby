@@ -1,4 +1,4 @@
-import checkUserId from '../middlewares/authentication/checkUserId';
+import checkUserId from '../../middlewares/authentication/checkUserId';
 class Controller {
   static homeIndex = (req, res) => {
     const login = checkUserId(req.session);
