@@ -4,8 +4,7 @@ import path from 'path';
 import logger from 'morgan';
 import session from 'express-session';
 import methodOverride from 'method-override';
-import routes from './routes/routes';
-import authRoutes from './routes/authRoutes';
+import routes from './routes';
 const app = express();
 app.use(helmet({
   contentSecurityPolicy: false,
@@ -36,7 +35,6 @@ app.use(session({
 }));
 app.use(methodOverride('_method'));
 app.use(routes);
-app.use('/auth', authRoutes);
 app.use((req, res) => {
   let login = false;
   if (req.session.userId) { login = true; }
