@@ -28,7 +28,7 @@ class gameController {
       }).catch((e) => console.log(e));
       return res.status(201);
     } catch {
-      return res.redirect('/rockpaperscissor');
+      return res.redirect('/game');
     }
   };
   static deleteGameHistory = async (req, res) => {
@@ -36,9 +36,9 @@ class gameController {
       const { historyId } = req.body;
       await userGameHistories.destroy({ where: { historyId } })
         .catch((e) => console.log(e));
-      return res.redirect('/gameHistory');
+      return res.redirect('/game/history');
     } catch {
-      return res.redirect('/rockpaperscissor');
+      return res.redirect('/game');
     }
   };
 }

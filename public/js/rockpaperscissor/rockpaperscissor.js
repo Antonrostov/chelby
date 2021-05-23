@@ -66,7 +66,7 @@ class Game {
   }
   sendHistory(player, comp) {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/gameHistory');
+    xhr.open('POST', '/game/history');
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     const msg = JSON.stringify({
       player_choice: player.choice,
