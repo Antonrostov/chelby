@@ -1,6 +1,7 @@
 import express from 'express';
 import authRoutes from './authRoutes';
 import profileRouter from './profileRoutes';
+import apiRouter from './apiRoutes';
 import gameRouter from './gameRoutes';
 import blockUnauthenticated from '../middlewares/authentication/blockUnauthenticated';
 import controller from '../controllers/ViewController/controller';
@@ -15,4 +16,5 @@ router.get('/home', (req, res) => {
 router.use('/auth', authRoutes);
 router.use('/profile', blockUnauthenticated, profileRouter);
 router.use('/game', blockUnauthenticated, gameRouter);
+router.use('/api', apiRouter);
 export default router;
