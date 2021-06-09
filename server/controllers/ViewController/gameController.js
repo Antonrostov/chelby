@@ -1,18 +1,17 @@
+import fetch from 'node-fetch';
 import { userGameHistories } from '../../models';
-import fetch from 'node-fetch'
 class gameController {
   static rpsIndex = (req, res) => {
     res.render('rockpaperscissor', { title: 'Rock Paper Scissor', username: req.session.username });
   };
   static getGameHistory = async (req, res) => {
     await fetch(`http:
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data.status === 200) {
           return res.render('game_history', { title: 'Game History', username: req.session.username, history: data.history });
-        } else {
-          return res.render('game_history', { title: 'Game History', username: req.session.username, history: '' });
         }
+        return res.render('game_history', { title: 'Game History', username: req.session.username, history: '' });
       })
       .catch((e) => console.log(e));
   };

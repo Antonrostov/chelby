@@ -1,15 +1,13 @@
 import { userGameHistories } from '../../models';
 class gameAPIController {
   static getGameHistory = async (req, res) => {
-    console.log(req.params.id)
+    console.log(req.params.id);
     try {
       await userGameHistories.findAll({
         attributes: ['historyId', 'timestamps', 'player_choice', 'comp_choice', 'result'],
         where: { userId: req.params.id },
         order: [['timestamps', 'DESC']],
-      }).then(history => {
-        return res.status(200).json({ status: 200, message: 'success', history });
-      })
+      }).then((history) => res.status(200).json({ status: 200, message: 'success', history }))
         .catch((e) => console.log(e));
     } catch {
       return res.status(403).json({ status: 403, message: 'forbidden' });
