@@ -1,19 +1,20 @@
-import fetch from 'node-fetch';
 import { userGameHistories } from '../../models';
 class gameController {
   static rpsIndex = (req, res) => {
     res.render('rockpaperscissor', { title: 'Rock Paper Scissor', username: req.session.username });
   };
   static getGameHistory = async (req, res) => {
-    await fetch(`http:
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === 200) {
-          return res.render('game_history', { title: 'Game History', username: req.session.username, history: data.history });
-        }
-        return res.render('game_history', { title: 'Game History', username: req.session.username, history: '' });
+    try {
+      const history = await userGameHistories.findAll({
+        attributes: ['historyId', 'timestamps', 'player_choice', 'comp_choice', 'result'],
+        where: { userId: req.session.userId },
+        order: [['timestamps', 'DESC']],
       })
-      .catch((e) => console.log(e));
+        .catch((e) => console.log(e));
+      return res.render('game_history', { title: 'Game History', username: req.session.username, history });
+    } catch {
+      return res.render('game_history', { title: 'Game History', username: req.session.username, history: '' });
+    }
   };
   static postGameHistory = async (req, res) => {
     try {
