@@ -1,11 +1,10 @@
-const {
-  Model
-} = require('sequelize');
+import { Model } from 'sequelize';
 module.exports = (sequelize, DataTypes) => {
   class room extends Model {
     static associate(models) {    
           const { userGames } = models;
-          userGameHistories.belongsTo(userGames, { foreignKey: 'userId', as: 'userData' });
+          room.belongsTo(userGames, { foreignKey: 'userId1', as: 'userData1' });
+          room.belongsTo(userGames, { foreignKey: 'userId2', as: 'userData2' });
         }
       }
   room.init({
@@ -46,15 +45,16 @@ module.exports = (sequelize, DataTypes) => {
     },
     playerOne_status: {
       allowNull: false,
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
     },
     playerTwo_status: {
       allowNull: false,
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
     },
  }, {
     sequelize,
     modelName: 'room',
+    timestamps: true
   });
   return room;
 };

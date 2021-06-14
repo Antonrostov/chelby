@@ -1,0 +1,27 @@
+body {
+    background-color: #9b835f;
+    font-family: 'Open Sans',                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           -serif;
+}
+.logo{
+    width: 3em;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+    height: auto;
+}
+header h3 {
+    margin: 0;
+    color: #d6a046;
+}
+main h2 {
+    font-size: 3vw;
+}
+@media screen and (max-width: 400px){
+    header h3{
+        font-size: 18px;
+    }
+    .logo{
+    width: 1.8em;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+    height: auto;
+    }
+    .text-vs{
+        font-size: 2em;
+    }
+}
