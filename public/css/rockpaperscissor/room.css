@@ -13,6 +13,10 @@ header h3 {
 main h2 {
     font-size: 3vw;
 }
+.card {
+    background-color: bisque;
+    border-radius: 7%;
+}
 @media screen and (max-width: 400px){
     header h3{
         font-size: 18px;
@@ -20,8 +24,5 @@ main h2 {
     .logo{
     width: 1.8em;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
     height: auto;
-    }
-    .text-vs{
-        font-size: 2em;
     }
 }
