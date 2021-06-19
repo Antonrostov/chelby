@@ -6,6 +6,7 @@ import session from 'express-session';
 import methodOverride from 'method-override';
 import routes from './routes';
 const app = express();
+require('dotenv').config();
 app.use(helmet({
   contentSecurityPolicy: false,
 }));
