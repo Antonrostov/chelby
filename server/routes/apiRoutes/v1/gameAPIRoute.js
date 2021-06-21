@@ -1,5 +1,5 @@
 import express from 'express';
-import gameHistoryAPIController from '../../../controllers/APIController/GameHistoryAPIController';
+import gameHistoryAPIController from '../../../controllers/APIController/gameHistoryAPIController';
 const router = express.Router();
 router.get('/history/:id', gameHistoryAPIController.getGameHistory);
 router.post('/history', gameHistoryAPIController.postGameHistory);
