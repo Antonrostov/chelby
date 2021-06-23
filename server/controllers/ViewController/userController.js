@@ -68,7 +68,7 @@ class userController {
       const user = await userGames.findOne({
         where: { userId: req.session.userId },
       });
-      const validPassword = await bcrypt.compare(oldPassword, user.password) || oldPassword === user.password;
+      const validPassword = await bcrypt.compare(oldPassword, user.password);
       if (!validPassword) {
         return res.render('changePassword', {
           title: 'Change Password', login, username: req.session.username || '', validateError: 'Password is wrong',

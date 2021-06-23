@@ -44,7 +44,7 @@ class authController {
           title: 'Login', login, validateError: 'Username is wrong.',
         });
       }
-      const validPassword = await bcrypt.compare(password, validUsername.password) || password === validUsername.password;
+      const validPassword = await bcrypt.compare(password, validUsername.password);
       if (!validPassword) {
         return res.render('login', {
           title: 'Login', login, validateError: 'Password is wrong.',
