@@ -5,7 +5,6 @@ import apiRouter from './apiRoutes';
 import gameRouter from './gameRoutes';
 import blockUnauthenticated from '../middlewares/authentication/blockUnauthenticated';
 import controller from '../controllers/ViewController/controller';
-import ViewController from '../controllers/ViewController/roomController';
 const router = express.Router();
 router.get('/', controller.homeIndex);
 router.get('/index', (req, res) => {
