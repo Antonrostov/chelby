@@ -1,7 +1,7 @@
 import express from 'express';
-import gameAPIRoute from './gameAPIRoute';
-import userAPIRoute from './userAPIRoute';
+import gameHistoryAPIRoute from './gameHistoryAPIRoute';
+import userProfileAPIRoute from './userProfileAPIRoute';
 const router = express.Router();
-router.use('/game', gameAPIRoute);
-router.use('/profile', userAPIRoute);
+router.use('/game', gameHistoryAPIRoute);
+router.use('/profile', userProfileAPIRoute);
 export default router;
