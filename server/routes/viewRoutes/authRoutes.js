@@ -1,9 +1,9 @@
 import express from 'express';
-import blockUnauthenticated from '../middlewares/authentication/blockUnauthenticated';
-import blockAuthenticated from '../middlewares/authentication/blockAuthenticated';
-import loginValidation from '../middlewares/validation/loginValidation';
-import signupValidation from '../middlewares/validation/signupValidation';
-import authController from '../controllers/ViewController/authController';
+import blockUnauthenticated from '../../middlewares/authentication/blockUnauthenticated';
+import blockAuthenticated from '../../middlewares/authentication/blockAuthenticated';
+import loginValidation from '../../middlewares/validation/loginValidation';
+import signupValidation from '../../middlewares/validation/signupValidation';
+import authController from '../../controllers/ViewController/authController';
 const authRouter = express.Router();
 authRouter.get('/signup', blockAuthenticated, authController.getSignup);
 authRouter.post('/signup', [blockAuthenticated, signupValidation], authController.postSignup);

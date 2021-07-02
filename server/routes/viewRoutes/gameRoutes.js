@@ -1,5 +1,5 @@
 import express from 'express';
-import gameController from '../controllers/ViewController/gameController';
+import gameController from '../../controllers/ViewController/gameController';
 const router = express.Router();
 router.get('/', gameController.getRoom);
 router.get('/history', gameController.getGameHistory);

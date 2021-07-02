@@ -32,7 +32,7 @@ class authController {
   };
   static getLogin = (req, res) => {
     const login = checkUserId(req.session);
-    res.render('login', { title: 'Login', login, validateError: '' });
+    return res.render('login', { title: 'Login', login, validateError: '' });
   };
   static postLogin = async (req, res) => {
     const login = checkUserId(req.session);

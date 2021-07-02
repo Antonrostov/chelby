@@ -15,19 +15,16 @@ module.exports = {
         email: 'alphagamer@gmail.com',
         username: 'alphagamer1',
         password: bcrypt.hashSync('alphagamer1', salt),
-        isAdmin: false,
       }, {
         userId: 'e2042fb4-925e-4ccd-a7c3-9f3a602511e6',
         email: 'betagamer@ymail.com',
         username: 'betagamer1',
         password: bcrypt.hashSync('betagamer1', salt),
-        isAdmin: false,
       }, {
         userId: '95cf7a67-7738-45af-b207-3a0542aa3f3f',
         email: 'charliegamer@live.com',
         username: 'charliegamer1',
         password: bcrypt.hashSync('charliegamer1', salt),
-        isAdmin: false,
       },
     ], {});
   },

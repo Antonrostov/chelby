@@ -1,7 +1,7 @@
 import express from 'express';
-import changePasswordValidation from '../middlewares/validation/changePasswordValidation';
-import editProfileValidation from '../middlewares/validation/editProfileValidation';
-import userController from '../controllers/ViewController/userController';
+import changePasswordValidation from '../../middlewares/validation/changePasswordValidation';
+import editProfileValidation from '../../middlewares/validation/editProfileValidation';
+import userController from '../../controllers/ViewController/userController';
 const router = express.Router();
 router.get('/', userController.getProfile);
 router.get('/edit', userController.getEditProfile);
