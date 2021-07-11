@@ -2,12 +2,6 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('userGameBiodata', [
       {
-        userId: 'd423b106-806d-44d6-8a6b-eb07ab9629a5',
-        name: 'Admin Game',
-        dob: new Date(1970, 1, 1),
-        status: 'Admin',
-      },
-      {
         userId: '3d0d8eb9-7a48-442f-914d-7ed1445f6bdd',
         name: 'Alpha Gamer',
         gender: 'm',

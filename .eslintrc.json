@@ -17,7 +17,6 @@
         "import/no-dynamic-require": "off",
         "no-console": "off",
         "no-plusplus": "off",
-        "no-unused-vars": "off",
-        "no-shadow": "off"
+        "no-unused-vars": "off"
     }
 }

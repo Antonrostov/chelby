@@ -1,24 +1,27 @@
-import fetch from 'node-fetch';
+import bcrypt from 'bcrypt';
+import { userGames, userGameBiodata } from '../../models';
 import checkUserId from '../../middlewares/authentication/checkUserId';
 class userController {
   static getProfile = async (req, res) => {
     const login = checkUserId(req.session);
-    await fetch(`http:
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === 403) {
-          return res.render('changePassword', {
-            title: 'Change Password', login, username: req.session.username || '', validateError: data.message,
-          });
-        }
-        if (data.status === 200) {
-          return res.render('profile', {
-            title: req.session.username, login, user: data.profile, username: req.session.username,
-          });
-        }
-        return res.render('profile', { title: 'Profile', login, username: req.session.username || '' });
+    try {
+      const data = await userGameBiodata.findOne({
+        attributes: ['name', 'gender', 'dob', 'status'],
+        where: { userId: req.session.userId },
+        include: [
+          {
+            model: userGames,
+            attributes: ['userId', 'username', 'email'],
+          },
+        ],
       })
-      .catch((e) => console.log(e));
+        .catch((e) => console.log(e));
+      return res.render('profile', {
+        title: req.session.username, login, data, username: req.session.username,
+      });
+    } catch {
+      return res.render('profile', { title: 'Profile', login, username: req.session.username || '' });
+    }
   };
   static getEditProfile = async (req, res) => {
     const login = checkUserId(req.session);
@@ -33,42 +36,66 @@ class userController {
     });
   };
   static patchEditProfile = async (req, res) => {
-    await fetch(`http:
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === 201) {
-          return res.redirect('/profile');
-        }
-        return res.redirect('/profile/edit');
+    const login = checkUserId(req.session);
+    try {
+      const { name, status, gender } = req.body;
+      let { dob } = req.body;
+      if (!dob) dob = null;
+      await userGameBiodata.findOne({
+        where: { userId: req.session.userId },
       })
-      .catch((e) => console.log(e));
+        .then((user) => {
+          if (name) { user.update({ name }); }
+          if (gender) { user.update({ gender }); }
+          if (dob) { user.update({ dob }); }
+          if (status) { user.update({ status }); }
+        })
+        .catch((e) => console.log(e));
+      return res.redirect('/profile');
+    } catch {
+      return res.redirect('/profile/edit', { login: false });
+    }
   };
   static patchChangePassword = async (req, res) => {
     const login = checkUserId(req.session);
-    await fetch(`http:
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === 200) {
-          return res.redirect('/profile');
-        }
+    try {
+      const { oldPassword, password } = req.body;
+      if (oldPassword === password) {
         return res.render('changePassword', {
-          title: 'Change Password', login, username: req.params.username || '', validateError: data.message,
+          title: 'Change Password', login, username: req.session.username || '', validateError: 'New password should not be the same as old password.',
         });
-      })
-      .catch((e) => console.log(e));
+      }
+      const user = await userGames.findOne({
+        where: { userId: req.session.userId },
+      });
+      const validPassword = await bcrypt.compare(oldPassword, user.password) || oldPassword === user.password;
+      if (!validPassword) {
+        return res.render('changePassword', {
+          title: 'Change Password', login, username: req.session.username || '', validateError: 'Password is wrong',
+        });
+      }
+      const hashedPassword = await bcrypt.hash(password, 10);
+      if (validPassword && password) { await user.update({ password: hashedPassword }); }
+      return res.redirect('/profile');
+    } catch {
+      return res.redirect('/profile/changePassword', { login: false });
+    }
   };
   static deleteUser = async (req, res) => {
-    await fetch(`http:
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === 302) {
-          req.session.destroy();
-          res.clearCookie(process.env.SESSION_NAME);
-          return res.render('login', { title: 'Login', login: false, validateError: '' });
+    const login = checkUserId(req.session);
+    try {
+      await userGames.destroy({ where: { userId: req.session.userId } })
+        .catch((e) => console.log(e));
+      req.session.destroy((err) => {
+        if (err) {
+          return res.render('index', { title: 'Home', login, username: '' });
         }
-        return res.redirect('/profile');
-      })
-      .catch((e) => console.log(e));
+        res.clearCookie(process.env.SESSION_NAME);
+        return res.redirect('/auth/login');
+      });
+    } catch {
+      return res.redirect('/profile');
+    }
   };
 }
 export default userController;

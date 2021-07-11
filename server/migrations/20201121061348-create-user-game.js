@@ -21,10 +21,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      isAdmin: {
-        allowNull: false,
-        type: Sequelize.BOOLEAN,
-      },
     });
   },
   down: async (queryInterface, Sequelize) => {

@@ -1,6 +1,8 @@
 import express from 'express';
-import apiRouter from './apiRoutes';
-import viewRoutes from './viewRoutes';
+import authRoutes from './authRoutes';
+import profileRouter from './profileRoutes';
+import gameRouter from './gameRoutes';
+import blockUnauthenticated from '../middlewares/authentication/blockUnauthenticated';
 import controller from '../controllers/ViewController/controller';
 const router = express.Router();
 router.get('/', controller.homeIndex);
@@ -10,6 +12,7 @@ router.get('/index', (req, res) => {
 router.get('/home', (req, res) => {
   res.redirect('/');
 });
-router.use(viewRoutes);
-router.use('/api', apiRouter);
+router.use('/auth', authRoutes);
+router.use('/profile', blockUnauthenticated, profileRouter);
+router.use('/game', blockUnauthenticated, gameRouter);
 export default router;

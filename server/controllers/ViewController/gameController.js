@@ -1,40 +1,45 @@
-import fetch from 'node-fetch';
+import { userGameHistories } from '../../models';
 class gameController {
-  static getRoom = (req, res) => {
+  static rpsIndex = (req, res) => {
     res.render('rockpaperscissor', { title: 'Rock Paper Scissor', username: req.session.username });
   };
   static getGameHistory = async (req, res) => {
-    await fetch(`http:
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === 200) {
-          return res.render('game_history', { title: 'Game History', username: req.session.username, history: data.history });
-        }
-        return res.render('game_history', { title: 'Game History', username: req.session.username, history: '' });
+    try {
+      const history = await userGameHistories.findAll({
+        attributes: ['historyId', 'timestamps', 'player_choice', 'comp_choice', 'result'],
+        where: { userId: req.session.userId },
+        order: [['timestamps', 'DESC']],
       })
-      .catch((e) => console.log(e));
+        .catch((e) => console.log(e));
+      return res.render('game_history', { title: 'Game History', username: req.session.username, history });
+    } catch {
+      return res.render('game_history', { title: 'Game History', username: req.session.username, history: '' });
+    }
   };
   static postGameHistory = async (req, res) => {
-    await fetch(`http:
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === 201) {
-          return res.redirect('/game');
-        }
-        return res.status(403);
-      })
-      .catch((e) => console.log(e));
+    try {
+      const { player_choice, comp_choice, result } = req.body;
+      await userGameHistories.create({
+        timestamps: new Date().toISOString(),
+        userId: req.session.userId,
+        player_choice,
+        comp_choice,
+        result,
+      }).catch((e) => console.log(e));
+      return res.status(201);
+    } catch {
+      return res.redirect('/game');
+    }
   };
   static deleteGameHistory = async (req, res) => {
-    await fetch(`http:
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === 200) {
-          return res.redirect('/game/history');
-        }
-        return res.redirect('/game');
-      })
-      .catch((e) => console.log(e));
+    try {
+      const { historyId } = req.body;
+      await userGameHistories.destroy({ where: { historyId } })
+        .catch((e) => console.log(e));
+      return res.redirect('/game/history');
+    } catch {
+      return res.redirect('/game');
+    }
   };
 }
 export default gameController;
