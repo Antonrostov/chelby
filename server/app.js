@@ -2,10 +2,11 @@ import express from 'express';
 import helmet from 'helmet';
 import path from 'path';
 import logger from 'morgan';
-import session from 'express-session';
+import cookieParser from 'cookie-parser';
 import methodOverride from 'method-override';
 import routes from './routes';
 const app = express();
+require('dotenv').config();
 app.use(helmet({
   contentSecurityPolicy: false,
 }));
@@ -19,20 +20,7 @@ app.use(logger('dev'));
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const expiryDate = new Date(Date.now() + 2 * 60 * 60 * 1000); 
-app.use(session({
-  name: process.env.SESSION_NAME,
-  resave: false,
-  saveUninitialized: false,
-  secret: process.env.SESSION_SECRET,
-  cookie: {
-    httpOnly: true,
-    path: '/',
-    expiryDate,
-    sameSite: true,
-    secure: false,
-  },
-}));
+app.use(cookieParser());
 app.use(methodOverride('_method'));
 app.use(routes);
 app.use((req, res) => {

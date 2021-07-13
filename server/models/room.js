@@ -1,19 +1,14 @@
 import { Model } from 'sequelize';
-const crypto = require('crypto');
 module.exports = (sequelize, DataTypes) => {
   class room extends Model {
-    static associate(models) {  
-    }  
-      static createRoom = () => {
-        const id = format(crypto.randomBytes(2), 'dec')
-        return this.create({
-          id,
-          roomName: id,
-        })
-      }
+    static associate(models) {
+      const { userGames } = models;
+      room.belongsTo(userGames, { foreignKey: 'userId1', as: 'userData1' });
+      room.belongsTo(userGames, { foreignKey: 'userId2', as: 'userData2' });
     }
+  }
   room.init({
-    id: {
+    roomId: {
       primaryKey: true,
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -36,30 +31,18 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
-    playerOne_choice: {
-      type: DataTypes.STRING,
-      validate: {
-        isIn: [['rock', 'paper', 'scissor']],
-      },
-    },
-    playerTwo_choice: {
-      type: DataTypes.STRING,
-      validate: {
-        isIn: [['rock', 'paper', 'scissor']],
-      },
-    },
     playerOne_status: {
-      allowNull: false,
       type: DataTypes.STRING,
     },
     playerTwo_status: {
-      allowNull: false,
       type: DataTypes.STRING,
     },
- }, {
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
+  }, {
     sequelize,
     modelName: 'room',
-    timestamps: true
+    timestamps: true,
   });
   return room;
 };
