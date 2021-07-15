@@ -12,7 +12,7 @@ const changePasswordValidation = async (req, res, next) => {
   const { error } = await changePasswordValidationSchema.validate(req.body);
   if (error) {
     return res.render('changePassword', {
-      title: 'Change Password', login: true, username: req.session.username || '', validateError: `${error.details[0].message}`,
+      title: 'Change Password', login: true, username: req.decoded.username || '', validateError: `${error.details[0].message}`,
     });
   }
   return next();

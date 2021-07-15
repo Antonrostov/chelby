@@ -1,9 +1,10 @@
 import express from 'express';
+import auth from '../middlewares/authentication';
 import apiRouter from './apiRoutes';
 import viewRoutes from './viewRoutes';
 import controller from '../controllers/ViewController/controller';
 const router = express.Router();
-router.get('/', controller.homeIndex);
+router.get('/', [auth.verifyToken], controller.index);
 router.get('/index', (req, res) => {
   res.redirect('/');
 });
@@ -12,4 +13,5 @@ router.get('/home', (req, res) => {
 });
 router.use(viewRoutes);
 router.use('/api', apiRouter);
+router.use(controller.pageNotFound);
 export default router;

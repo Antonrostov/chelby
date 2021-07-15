@@ -67,9 +67,9 @@ class userController {
   static deleteUser = async (req, res) => {
     try {
       await userGames.destroy({ where: { userId: req.params.id } })
-        .then(() => res.status(302).json({ status: 302, message: `User ${req.params.id} data deleted.` }))
+        .then(() => res.status(200).json({ status: 200, message: `User ${req.params.id} data deleted.` }))
         .catch((e) => console.log(e));
-      return res.status(302);
+      return res.status(200);
     } catch {
       return res.status(403).json({ status: 403, message: 'Failed to delete user data.' });
     }

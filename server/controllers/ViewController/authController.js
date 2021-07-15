@@ -1,9 +1,6 @@
 import fetch from 'node-fetch';
-import auth from '../../middlewares/authentication';
 class authController {
-  static getSignup = (req, res) => {
-    res.render('signup', { title: 'Sign Up', login: false, validateError: '' });
-  };
+  static getSignup = (req, res) => res.status(200).render('signup', { title: 'Sign Up', login: false, validateError: '' });
   static postSignup = async (req, res) => {
     await fetch(`http:
       .then((res) => res.json())
@@ -15,21 +12,21 @@ class authController {
       })
       .catch((e) => console.log(e));
   };
-  static getLogin = (req, res) => res.render('login', { title: 'Login', login: false, validateError: '' });
+  static getLogin = (req, res) => res.status(200).render('login', { title: 'Login', login: false, validateError: '' });
   static postLogin = async (req, res) => {
     await fetch(`http:
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
-          return res.cookie('access_token', `Bearer ${data.token}`, {
+          return res.cookie(process.env.TOKEN_COOKIE_NAME, `Bearer ${data.token}`, {
             httpOnly: true,
             path: '/',
             expiryDate: new Date(Date.now() + 2 * 60 * 60 * 1000),
             sameSite: true,
             secure: false,
-          }).render('index', { title: 'Home', login: true, username: data.username });
+          }).redirect('/');
         }
-        return res.render('login', { title: 'login', login: false, validateError: data.message });
+        return res.status(200).render('login', { title: 'login', login: false, validateError: data.message });
       })
       .catch((e) => console.log(e));
   };
@@ -38,10 +35,10 @@ class authController {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 302) {
-          res.clearCookie('access_token');
-          return res.render('login', { title: 'Login', login: false, validateError: '' });
+          res.clearCookie(process.env.TOKEN_COOKIE_NAME);
+          return res.redirect('/auth/login');
         }
-        return res.redirect('/profile');
+        return res.redirect('/');
       })
       .catch((e) => console.log(e));
   }

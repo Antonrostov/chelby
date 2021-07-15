@@ -1,6 +1,6 @@
 const blockAuthenticated = (req, res, next) => {
-  if (req.session.userId) {
-    res.render('index', { title: 'Home', login: true, username: req.session.username || '' });
+  if (req.cookies.access_token) {
+    return res.redirect('/');
   } else next();
 };
 export default blockAuthenticated;

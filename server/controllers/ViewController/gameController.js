@@ -1,8 +1,6 @@
 import fetch from 'node-fetch';
 class gameController {
-  static getRoom = (req, res) => {
-    res.render('rockpaperscissor', { title: 'Rock Paper Scissor', username: req.session.username });
-  };
+  static getRoom = (req, res) => res.render('rockpaperscissor', { title: 'Rock Paper Scissor', username: req.decoded.username });
   static getGameHistory = async (req, res) => {
     await fetch(`http:
       .then((res) => res.json())

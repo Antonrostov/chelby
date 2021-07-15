@@ -17,7 +17,7 @@ const editProfileValidation = async (req, res, next) => {
   const { error } = await editProfileValidationSchema.validate(req.body);
   if (error) {
     return res.render('editProfile', {
-      title: 'Edit Profile', login: true, username: req.session.username || '', validateError: `${error.details[0].message}`,
+      title: 'Edit Profile', login: true, username: req.decoded.username || '', validateError: `${error.details[0].message}`,
     });
   }
   return next();

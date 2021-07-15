@@ -23,8 +23,3 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(methodOverride('_method'));
 app.use(routes);
-app.use((req, res) => {
-  let login = false;
-  if (req.session.userId) { login = true; }
-  res.status(404).render('404', { title: '404', login, username: req.session.username || '' });
-});
