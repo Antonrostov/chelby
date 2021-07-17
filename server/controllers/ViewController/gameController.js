@@ -6,9 +6,9 @@ class gameController {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
-          return res.render('game_history', { title: 'Game History', username: req.session.username, history: data.history });
+          return res.render('game_history', { title: 'Game History', username: req.cookies.username, history: data.history });
         }
-        return res.render('game_history', { title: 'Game History', username: req.session.username, history: '' });
+        return res.render('game_history', { title: 'Game History', username: req.cookies.username, history: '' });
       })
       .catch((e) => console.log(e));
   };
