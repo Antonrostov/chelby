@@ -53,8 +53,8 @@ class userController {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
-          res.clearCookie(process.env.USERNAME_COOKIE_NAME);
-          res.clearCookie(process.env.TOKEN_COOKIE_NAME);
+          res.clearCookie('username');
+          res.clearCookie(process.env.TOKEN_COOKIE);
           return res.render('login', { title: 'Login', login: false, validateError: '' });
         }
         return res.redirect('/profile');

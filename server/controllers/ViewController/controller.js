@@ -1,4 +1,3 @@
-import jwtAuth from '../../middlewares/authentication/jwtAuth';
 class Controller {
   static index = (req, res) => {
     console.log(req.cookies.username);

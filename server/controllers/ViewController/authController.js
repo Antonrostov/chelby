@@ -18,8 +18,8 @@ class authController {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
-          res.cookie(process.env.USERNAME_COOKIE_NAME, data.username);
-          return res.cookie(process.env.TOKEN_COOKIE_NAME, `Bearer ${data.token}`, {
+          res.cookie('username', data.username);
+          return res.cookie(process.env.TOKEN_COOKIE, `Bearer ${data.token}`, {
             httpOnly: true,
             path: '/',
             expiryDate: new Date(Date.now() + 2 * 60 * 60 * 1000),
@@ -36,8 +36,8 @@ class authController {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 302) {
-          res.clearCookie(process.env.USERNAME_COOKIE_NAME);
-          res.clearCookie(process.env.TOKEN_COOKIE_NAME);
+          res.clearCookie('username');
+          res.clearCookie(process.env.TOKEN_COOKIE);
           return res.redirect('/auth/login');
         }
         return res.redirect('/');
