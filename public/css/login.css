@@ -22,6 +22,12 @@ html {
   opacity: 0.5;
   color: black;
 }
+.loginForm label {
+  font-size: 24px;
+}
+.loginForm .signup {
+  font-size: 14px;
+}
 .footer p {
   font-size: 14px;
   color: grey;

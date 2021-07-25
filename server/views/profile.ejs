@@ -70,6 +70,7 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
                   <form action="/profile/deleteUser?_method=DELETE" method="POST" class="d-inline-block">
+                    <input type="hidden" id="userId" name="userId" value="<%= user.userGame.userId %>">
                     <button type="submit" class="btn btn-danger">Confirm Delete</button>
                   </form>
                 </div>

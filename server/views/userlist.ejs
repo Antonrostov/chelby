@@ -3,11 +3,11 @@
 <head>
   <%- include('./partials/head.ejs') %>
   <style>
-    td{
+    th{
       text-align: center;
     }
-    td:nth-child(1){
-      text-align: left;
+    td{
+      text-align: center;
     }
   </style>
   <link rel="stylesheet" href="/css/profile.css" />
@@ -21,7 +21,6 @@
           <h1>USER LIST</h1>
           <table class="table table-dark table-bordered">
             <tr>
-              <th scope="col">User ID</th>
               <th scope="col">Username</th>
               <th scope="col">Admin</th>
               <th scope="col">Make Admin</th>
@@ -29,28 +28,31 @@
             </tr>
             <% for(let i=0; i<users.length; i++) { %>
             <tr>
-              <td><%= users[i].userId %></td>
-              <td><%= users[i].isAdmin %></td>
+              <td><%= users[i].username %></td>
               <% if(users[i].isAdmin == true) { %>
                 <td>&#10004;</td>
               <% } else { %>
                 <td>&#10060;</td>
               <% } %>
               <% if(users[i].isAdmin == false) { %>
-                <td><form action="?_method=DELETE" method="POST">
-                  <input type="hidden" id="historyId" name="historyId" value="">
+                <td><form action="/api/v1/admin/makeAdmin?_method=PATCH" method="POST">
+                  <input type="hidden" id="userId" name="userId" value="<%= users[i].userId %>">
                   <button class="btn btn-sm btn-success" type="submit">Yes</button>
                 </form></td>
               <% } else { %>
                 <td></td>
               <% } %>
-              <td><form action="?_method=DELETE" method="POST">
-                <input type="hidden" id="historyId" name="historyId" value="">
-                <button class="btn btn-sm btn-danger" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                </svg></button>
-              </form></td>
+              <% if(users[i].isAdmin == false) { %>
+                <td><form action="/admin/deleteUser?_method=DELETE" method="POST">
+                  <input type="hidden" id="userId" name="userId" value="<%= users[i].userId %>">
+                  <button class="btn btn-sm btn-danger" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                  </svg></button>
+                </form></td>
+              <% } else { %>
+                <td></td>
+              <% } %>
             </tr>
             <% } %>
           </table>
