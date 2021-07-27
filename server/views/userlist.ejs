@@ -23,7 +23,7 @@
             <tr>
               <th scope="col">Username</th>
               <th scope="col">Admin</th>
-              <th scope="col">Make Admin</th>
+              <th scope="col">Promote / Demote</th>
               <th scope="col">Delete</th>
             </tr>
             <% for(let i=0; i<users.length; i++) { %>
@@ -34,10 +34,15 @@
               <% } else { %>
                 <td>&#10060;</td>
               <% } %>
-              <% if(users[i].isAdmin == false) { %>
-                <td><form action="/api/v1/admin/makeAdmin?_method=PATCH" method="POST">
+              <% if( users[i].isAdmin === false && users[i].username !== 'superadmin' ) { %>
+                <td><form action="/api/v1/admin/promoteAdmin?_method=PATCH" method="POST">
                   <input type="hidden" id="userId" name="userId" value="<%= users[i].userId %>">
-                  <button class="btn btn-sm btn-success" type="submit">Yes</button>
+                  <button class="btn btn-sm btn-success" type="submit">Promote</button>
+                </form></td>
+              <% } else if( users[i].isAdmin === true && users[i].username !== 'superadmin' ) { %>
+                <td><form action="/api/v1/admin/demoteAdmin?_method=PATCH" method="POST">
+                  <input type="hidden" id="userId" name="userId" value="<%= users[i].userId %>">
+                  <button class="btn btn-sm btn-danger" type="submit">Demote</button>
                 </form></td>
               <% } else { %>
                 <td></td>

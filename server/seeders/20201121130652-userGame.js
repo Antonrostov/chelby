@@ -5,8 +5,8 @@ module.exports = {
     await queryInterface.bulkInsert('userGames', [
       {
         userId: 'd423b106-806d-44d6-8a6b-eb07ab9629a5',
-        email: 'admin@game.com',
-        username: 'admingame',
+        email: 'superadmin@game.com',
+        username: 'superadmin',
         password: bcrypt.hashSync('password', salt),
         isAdmin: true,
       },

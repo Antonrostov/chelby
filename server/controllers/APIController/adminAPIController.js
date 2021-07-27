@@ -12,15 +12,30 @@ class adminAPIController {
       return res.status(403).json({ status: 403, message: 'Forbidden.' });
     }
   };
-  static makeAdmin = async (req, res) => {
+  static promoteAdmin = async (req, res) => {
     try {
       const { userId } = req.body;
-      console.log(userId);
       await userGames.findOne({
         where: { userId },
       })
         .then((user) => {
           if (userId) { user.update({ isAdmin: true }); }
+        })
+        .then(() => res.redirect('/admin/userlist'))
+        .catch((e) => console.log(e));
+      return res.status(201);
+    } catch {
+      return res.status(403);
+    }
+  };
+  static demoteAdmin = async (req, res) => {
+    try {
+      const { userId } = req.body;
+      await userGames.findOne({
+        where: { userId },
+      })
+        .then((user) => {
+          if (userId) { user.update({ isAdmin: false }); }
         })
         .then(() => res.redirect('/admin/userlist'))
         .catch((e) => console.log(e));
