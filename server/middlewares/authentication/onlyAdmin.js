@@ -4,7 +4,7 @@ const onlyAdmin = async (req, res, next) => {
     await userGames.findOne({
       where: { userId: req.decoded.userId },
     }).then((user) => {
-      if (user.isAdmin) return next();
+      if (user.roleRank === 1 || user.roleRank === 2) return next();
       return res.redirect('/');
     }).catch((e) => console.log(e));
   } catch {

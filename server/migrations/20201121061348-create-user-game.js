@@ -21,9 +21,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      isAdmin: {
+      roleRank: {
         allowNull: false,
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'userRoles',
+          key: 'rank',
+        },
+        onDelete: 'set null',
       },
     });
   },

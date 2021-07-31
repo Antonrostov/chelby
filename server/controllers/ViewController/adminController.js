@@ -5,8 +5,9 @@ class adminController {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
+          const loggedinUser = data.users.filter((user) => user.userId === req.decoded.userId);
           return res.render('userlist', {
-            title: 'User List', login: true, username: req.cookies.username, users: data.users,
+            title: 'User List', login: true, username: req.cookies.username, users: data.users, loggedIn: loggedinUser,
           });
         }
         return res.render('userlist', {
