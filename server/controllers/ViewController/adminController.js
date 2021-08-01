@@ -16,6 +16,28 @@ class adminController {
       })
       .catch((e) => console.log(e));
   };
+  static promote = async (req, res) => {
+    await fetch(`http:
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 200) {
+          return res.redirect('/admin/userlist');
+        }
+        return res.redirect('/');
+      })
+      .catch((e) => console.log(e));
+  }
+  static demote = async (req, res) => {
+    await fetch(`http:
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 200) {
+          return res.redirect('/admin/userlist');
+        }
+        return res.redirect('/');
+      })
+      .catch((e) => console.log(e));
+  }
   static deleteUser = async (req, res) => {
     await fetch(`http:
       .then((res) => res.json())

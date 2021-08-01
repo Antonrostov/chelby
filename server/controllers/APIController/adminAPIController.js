@@ -12,42 +12,50 @@ class adminAPIController {
           },
         ],
       }).then((users) => res.status(200).json({ status: 200, message: 'Success', users }))
-        .catch((e) => console.log(e));
+        .catch((error) => res.status(400).json({ error: error.name }));
       return res.status(200);
     } catch {
       return res.status(403).json({ status: 403, message: 'Forbidden.' });
     }
   };
-  static promoteAdmin = async (req, res) => {
+  static promote = async (req, res) => {
     try {
       const { userId } = req.body;
       await userGames.findOne({
+        attributes: ['userId', 'email', 'username', ['roleRank', 'previous role rank']],
         where: { userId },
       })
         .then((user) => {
-          if (userId) { user.decrement('roleRank', { by: 1 }); }
+          if (user) {
+            user.decrement('roleRank', { by: 1 });
+            return res.status(200).json({ status: 200, user });
+          }
+          return res.status(422).json({ status: 422, message: 'No user found.' });
         })
-        .then(() => res.redirect('/admin/userlist'))
-        .catch((e) => console.log(e));
-      return res.status(201);
-    } catch {
+        .catch((error) => res.status(400).json({ error: error.name }));
       return res.status(403);
+    } catch {
+      return res.status(500);
     }
   };
-  static demoteAdmin = async (req, res) => {
+  static demote = async (req, res) => {
     try {
       const { userId } = req.body;
       await userGames.findOne({
+        attributes: ['userId', 'email', 'username', ['roleRank', 'previous role rank']],
         where: { userId },
       })
         .then((user) => {
-          if (userId) { user.increment('roleRank', { by: 1 }); }
+          if (user) {
+            user.increment('roleRank', { by: 1 });
+            return res.status(200).json({ status: 200, user });
+          }
+          return res.status(422).json({ status: 422, message: 'No user found.' });
         })
-        .then(() => res.redirect('/admin/userlist'))
-        .catch((e) => console.log(e));
-      return res.status(201);
-    } catch {
+        .catch((error) => res.status(400).json({ error: error.name }));
       return res.status(403);
+    } catch {
+      return res.status(500);
     }
   };
 }

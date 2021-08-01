@@ -37,7 +37,7 @@
                 <td>&#10060;</td>
               <% } %>
               <% if( users[i].roleRank > loggedIn[0].roleRank ) { %>
-                <td><form action="/api/v1/admin/promoteAdmin?_method=PATCH" method="POST">
+                <td><form action="/admin/promote?_method=PATCH" method="POST">
                   <input type="hidden" id="userId" name="userId" value="<%= users[i].userId %>">
                   <button class="btn btn-sm btn-success" type="submit">Promote</button>
                 </form></td>
@@ -45,7 +45,7 @@
                 <td></td>
               <% } %>
               <% if( users[i].roleRank > loggedIn[0].roleRank && users[i].username !== loggedIn[0].username && users[i].username !== 'superadmin' ) { %>
-                <td><form action="/api/v1/admin/demoteAdmin?_method=PATCH" method="POST">
+                <td><form action="/admin/demote?_method=PATCH" method="POST">
                   <input type="hidden" id="userId" name="userId" value="<%= users[i].userId %>">
                   <button class="btn btn-sm btn-danger" type="submit">Demote</button>
                 </form></td>
