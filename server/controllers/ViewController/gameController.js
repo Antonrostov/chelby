@@ -19,7 +19,7 @@ class gameController {
         if (data.status === 201) {
           return res.redirect('/game');
         }
-        return res.status(403);
+        return res.redirect('/');
       })
       .catch((e) => console.log(e));
   };

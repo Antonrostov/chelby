@@ -35,7 +35,7 @@ class authController {
     await fetch(`http:
       .then((res) => res.json())
       .then((data) => {
-        if (data.status === 302) {
+        if (data.status === 200) {
           res.clearCookie('username');
           res.clearCookie(process.env.TOKEN_COOKIE);
           return res.redirect('/auth/login');

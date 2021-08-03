@@ -12,7 +12,7 @@ class authController {
       const usernameExist = await userGames.findOne({ where: { username } });
       if (usernameExist) return res.status(409).json({ message: 'Username is already taken.' });
       const hashedPassword = await bcrypt.hash(password, 10);
-      await userGames.create({
+      return await userGames.create({
         email,
         username,
         password: hashedPassword,
@@ -23,7 +23,6 @@ class authController {
         }))
         .then((user) => res.status(201).json({ status: 201, message: `User ${user.userId} added.`, user }))
         .catch((e) => res.status(400).json({ message: 'Failed to signup.' }));
-      return res.status(201);
     } catch {
       return res.status(400).json({ message: 'Failed to signup.' });
     }
@@ -49,6 +48,8 @@ class authController {
       return res.status(401).json({ status: 401, message: 'Unathorized.' });
     }
   };
-  static logout = (req, res) => res.status(200).json({ status: 200, message: 'Session and cookies will be deleted.' })
+  static logout = (req, res) => {
+    res.status(200).json({ status: 200, message: 'Session and cookies will be deleted.' });
+  };
 }
 export default authController;

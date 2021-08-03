@@ -28,7 +28,7 @@ class userController {
     await fetch(`http:
       .then((res) => res.json())
       .then((data) => {
-        if (data.status === 201) {
+        if (data.status === 200) {
           return res.redirect('/profile');
         }
         return res.redirect('/profile/edit');

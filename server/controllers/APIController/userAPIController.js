@@ -3,7 +3,7 @@ import { userGames, userGameBiodata } from '../../models';
 class userController {
   static getProfile = async (req, res) => {
     try {
-      await userGameBiodata.findOne({
+      return await userGameBiodata.findOne({
         attributes: ['name', 'gender', 'dob', 'status'],
         where: { userId: req.params.id },
         include: [
@@ -12,11 +12,13 @@ class userController {
             attributes: ['userId', 'username', 'email'],
           },
         ],
-      }).then((profile) => res.status(200).json({ status: 200, message: 'Success', profile }))
-        .catch((e) => console.log(e));
-      return res.status(200);
+      }).then((profile) => {
+        if (profile) return res.status(200).json({ status: 200, message: 'Success', profile });
+        return res.status(404).json({ status: 404, message: 'Data not found.' });
+      })
+        .catch((error) => res.status(400).json({ error: error.name }));
     } catch {
-      return res.status(403).json({ status: 403, message: 'Forbidden' });
+      return res.status(500).json({ status: 500, message: 'Internal Server Error.' });
     }
   };
   static patchEditProfile = async (req, res) => {
@@ -24,7 +26,7 @@ class userController {
       const { name, status, gender } = req.body;
       let { dob } = req.body;
       if (!dob) dob = null;
-      await userGameBiodata.findOne({
+      return await userGameBiodata.findOne({
         where: { userId: req.params.id },
       })
         .then((user) => {
@@ -32,44 +34,45 @@ class userController {
           if (gender) { user.update({ gender }); }
           if (dob) { user.update({ dob }); }
           if (status) { user.update({ status }); }
+          return res.status(200).json({ status: 200, message: `Profile ${req.params.id} edited`, user });
         })
-        .then((profile) => res.status(201).json({ status: 201, message: `Profile ${req.params.id} edited`, profile }))
-        .catch((e) => console.log(e));
-      return res.status(201);
+        .catch((error) => res.status(400).json({ error: error.name }));
     } catch {
-      return res.status(403).json({ status: 403, message: 'Failed to edit profile.' });
+      return res.status(500).json({ status: 500, message: 'Internal Server Error.' });
     }
   };
   static patchChangePassword = async (req, res) => {
     try {
       const { oldPassword, password } = req.body;
       if (oldPassword === password) {
-        return res.status(403).json({ status: 403, message: 'New password should not be the same as old password.' });
+        return res.status(400).json({ status: 400, message: 'New password should not be the same as old password.' });
       }
       const user = await userGames.findOne({
         where: { userId: req.params.id },
       });
       const validPassword = await bcrypt.compare(oldPassword, user.password);
       if (!validPassword) {
-        return res.status(403).json({ status: 403, message: 'Password is wrong.' });
+        return res.status(400).json({ status: 400, message: 'Password is wrong.' });
       }
       const hashedPassword = await bcrypt.hash(password, 10);
       if (validPassword && password) {
-        await user.update({ password: hashedPassword })
+        return await user.update({ password: hashedPassword })
           .then(() => res.status(200).json({ status: 200, message: 'Password changed.' }))
-          .catch((e) => console.log(e));
+          .catch((error) => res.status(400).json({ error: error.name }));
       }
-      return res.status(200);
+      return res.status(500);
     } catch {
-      return res.status(403).json({ status: 403, message: 'Failed to change password' });
+      return res.status(404).json({ status: 404, message: 'Failed to change password' });
     }
   };
   static deleteUser = async (req, res) => {
     try {
-      await userGames.destroy({ where: { userId: req.body.userId } })
-        .then(() => res.status(200).json({ status: 200, message: `User ${req.params.id} data deleted.` }))
-        .catch((e) => console.log(e));
-      return res.status(200);
+      return await userGames.destroy({ where: { userId: req.body.userId } })
+        .then((user) => {
+          if (user) return res.status(200).json({ status: 200, message: `User ${req.body.userId} data deleted.` });
+          return res.status(404).json({ status: 404, message: 'Data not found.' });
+        })
+        .catch((error) => res.status(400).json({ error: error.name }));
     } catch {
       return res.status(403).json({ status: 403, message: 'Failed to delete user data.' });
     }

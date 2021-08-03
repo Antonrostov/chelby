@@ -2,43 +2,43 @@ import { userGameHistories } from '../../models';
 class gameAPIController {
   static getGameHistory = async (req, res) => {
     try {
-      await userGameHistories.findAll({
+      return await userGameHistories.findAll({
         attributes: ['historyId', 'timestamps', 'player_choice', 'comp_choice', 'result'],
         where: { userId: req.params.id },
         order: [['timestamps', 'DESC']],
       }).then((history) => res.status(200).json({ status: 200, message: 'success', history }))
-        .catch((e) => console.log(e));
-      return res.status(200);
+        .catch((error) => res.status(400).json({ error: error.name }));
     } catch {
-      return res.status(403).json({ status: 403, message: 'forbidden' });
+      return res.status(500).json({ status: 500, message: 'Server Internal Error.' });
     }
   };
   static postGameHistory = async (req, res) => {
     try {
       const { player_choice, comp_choice, result } = req.body;
-      await userGameHistories.create({
-        timestamps: new Date().toISOString(),
-        userId: req.params.id,
-        player_choice,
-        comp_choice,
-        result,
-      })
-        .then((history) => res.status(201).json({ status: 201, message: 'new history created', history }))
-        .catch((e) => console.log(e));
-      return res.status(201);
+      if (player_choice && comp_choice && result) {
+        return await userGameHistories.create({
+          timestamps: new Date().toISOString(),
+          userId: req.params.id,
+          player_choice,
+          comp_choice,
+          result,
+        })
+          .then((history) => res.status(201).json({ status: 201, message: 'new history created', history }))
+          .catch((error) => res.status(400).json({ error: error.name }));
+      }
+      return res.status(400).json({ status: 400, message: 'Bad Request.' });
     } catch {
-      return res.status(403).json({ status: 403, message: 'failed to create new history' });
+      return res.status(500).json({ status: 500, message: 'Server Internal Error.' });
     }
   };
   static deleteGameHistory = async (req, res) => {
     try {
       const { historyId } = req.body;
-      await userGameHistories.destroy({ where: { historyId } })
+      return await userGameHistories.destroy({ where: { historyId } })
         .then(() => res.status(200).json({ status: 200, message: `history ${historyId} deleted` }))
-        .catch((e) => console.log(e));
-      return res.status(200);
+        .catch((error) => res.status(400).json({ error: error.name }));
     } catch {
-      return res.status(403).json({ status: 403, message: 'error deleting history' });
+      return res.status(500).json({ status: 500, message: 'Server Internal Error.' });
     }
   };
 }
