@@ -11,7 +11,19 @@ module.exports = {
       },
       {
         rank: 3,
-        role: 'user',
+        role: 'professional gamer',
+      },
+      {
+        rank: 4,
+        role: 'hardcore gamer',
+      },
+      {
+        rank: 5,
+        role: 'casual gamer',
+      },
+      {
+        rank: 6,
+        role: 'newcomer',
       },
     ], {});
   },

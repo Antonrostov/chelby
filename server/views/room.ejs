@@ -1,59 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include('./partials/head.ejs') %>
-    <link rel="stylesheet" href="/css/rockpaperscissor/room.css" />
+  <%- include('./partials/gameHead.ejs') %>
+    <link rel="stylesheet" href="/css/rockpaperscissor/room.css">
 </head>
-<title>Rock Paper Scissors</title>
-<body class="container">
-    <header class="d-flex flex-row align-items-center">
-        <div class="p-2">
-            <a href="room.html">
-                <svg width="40px" height="40px" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="rgb(114,76,33)"xmlns="http://www.w3.org/2000/svg">
-					<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
-				</svg>
+<body>
+  <div class="align-items-center customHeader" id="header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-7 my-2">
+          <div class="d-inline-block mr-3">
+            <a href="/">
+              <svg width="40px" height="40px" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="rgb(114,76,33)"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                  d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+              </svg>
             </a>
+          </div>
+          <a href="#">
+            <div class="d-inline-block mr-3">
+              <img src="/images/rockpaperscissor/logo.png" width="40px" height="40px" class="" alt="logo">
+            </div>
+          </a>
+          <a href="#">
+            <div class="d-inline-block mx-auto align-middle headerTitle">
+              GAME ROOM
+            </div>
+          </a>
         </div>
-        <div class="p-2">
-            <img src="assets/logo.png" alt="logo" class="logo">
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid room" id="room">
+    <div class="row d-flex flex-row justify-content-center align-items-center">
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Create Room</h4>
+            <form action="" method="">
+              <div class="form-group">
+              </div>
+              <button type="submit" class="btn btn-warning editProfileSubmit"
+                id="editProfileSubmit"><strong>CREATE</strong></button>
+            </form>
+          </div>
         </div>
-        <div class="p-2">
-            <h3>ROCK PAPER SCISSORS</h3>
+      </div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Join Room</h4>
+            <form action="" method="">
+              <div class="form-group">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Room Code">
+              </div>
+              <button type="submit" class="btn btn-warning editProfileSubmit"
+                id="editProfileSubmit"><strong>JOIN</strong></button>
+            </form>
+          </div>
         </div>
-    </header>
-    <main class="container mt-1">
-        <div class="d-flex flex-row justify-content-center align-items-center">
-            <div class="p-2">
-                <div class="row">
-                    <div class="col-sm-6">
-                      <div class="card">
-                        <div class="card-body card">
-                          <h5 class="card-title">Join Room</h5>
-                          <form>
-                            <div class="form-group">
-                              <label for="exampleInputEmail1">Enter room name</label>
-                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            </div>
-                            <div class="form-group ">
-                            </div>
-                          </form>
-                          <a href="#" class="btn btn-warning">Join</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="card">
-                        <div class="card-body">
-                          <h5 class="card-title">Create Room</h5>
-                          <p class="card-text">Create new room if you dont have a room</p>
-                          <a href="#" class="btn btn-warning">Create Room</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-    </main>
-	<%- include('./partials/bootstrapScripts.ejs') %>
-	<script src="/js/rockpaperscissor/rockpaperscissor.js"></script>
+      </div>
+    </div>
+  </div>
+  <%- include('./partials/bootstrapScripts.ejs') %>
 </body>
 </html>

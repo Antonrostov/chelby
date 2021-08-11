@@ -29,19 +29,35 @@ module.exports = {
         email: 'alphagamer@gmail.com',
         username: 'alphagamer1',
         password: bcrypt.hashSync('alphagamer1', salt),
-        roleRank: 3,
-      }, {
+        roleRank: 4,
+      },
+      {
         userId: 'e2042fb4-925e-4ccd-a7c3-9f3a602511e6',
         email: 'betagamer@ymail.com',
         username: 'betagamer1',
         password: bcrypt.hashSync('betagamer1', salt),
         roleRank: 3,
-      }, {
+      },
+      {
         userId: '95cf7a67-7738-45af-b207-3a0542aa3f3f',
         email: 'charliegamer@live.com',
         username: 'charliegamer1',
         password: bcrypt.hashSync('charliegamer1', salt),
-        roleRank: 3,
+        roleRank: 5,
+      },
+      {
+        userId: '210d8446-08ec-4b0d-809e-0f6a7275840a',
+        email: 'deltagamer@domain.com',
+        username: 'deltagamer1',
+        password: bcrypt.hashSync('deltagamer1', salt),
+        roleRank: 6,
+      },
+      {
+        userId: '97b50d73-f95d-4aa7-8c09-3855d971b87e',
+        email: 'echogamer@gmail.com',
+        username: 'echogamer1',
+        password: bcrypt.hashSync('echogamer1', salt),
+        roleRank: 6,
       },
     ], {});
   },

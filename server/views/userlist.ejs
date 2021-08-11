@@ -31,11 +31,7 @@
             <% for(let i=0; i<users.length; i++) { %>
             <tr>
               <td><%= users[i].username %></td>
-              <% if(users[i].roleRank !== 5) { %>
-                <td><%= users[i].userRole.role %></td>
-              <% } else { %>
-                <td>&#10060;</td>
-              <% } %>
+              <td><%= users[i].userRole.role %></td>
               <% if( users[i].roleRank > loggedIn[0].roleRank ) { %>
                 <td><form action="/admin/promote?_method=PATCH" method="POST">
                   <input type="hidden" id="userId" name="userId" value="<%= users[i].userId %>">

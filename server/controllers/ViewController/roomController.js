@@ -2,8 +2,8 @@ import { room, userGames } from '../../models';
 class RoomController {
     static getRoom = async (req, res) => {
       try {
-        const room = await room.findAll();
-        return res.status(200).json(room);
+        const test = await room.findAll();
+        return res.status(200).json(test);
       } catch (err) {
         return res.status(500).json(err);
       }
