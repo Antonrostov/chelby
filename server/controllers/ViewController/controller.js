@@ -1,6 +1,5 @@
 class Controller {
   static index = (req, res) => {
-    console.log(req.cookies.username);
     if (req.cookies.username) return res.render('index', { title: 'Home', login: true, username: req.cookies.username });
     return res.render('index', { title: 'Home', login: false, username: '' });
   };

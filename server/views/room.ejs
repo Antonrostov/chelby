@@ -38,12 +38,11 @@
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">Create Room</h4>
-            <form action="" method="">
-              <div class="form-group">
-              </div>
-              <button type="submit" class="btn btn-warning editProfileSubmit"
-                id="editProfileSubmit"><strong>CREATE</strong></button>
-            </form>
+            <button type="submit" class="btn btn-warning createRoom" id="createRoom"><strong>CREATE</strong></button>
+            <div id="showRoomCode" hidden>
+              ROOM CODE : <strong><span id="roomCode"></span></strong><br>
+              Share the code and play with your friend!
+            </div>
           </div>
         </div>
       </div>
@@ -64,5 +63,20 @@
     </div>
   </div>
   <%- include('./partials/bootstrapScripts.ejs') %>
+    <script>
+      const showRoomCode = document.getElementById('showRoomCode');
+      const createRoom = document.getElementById('createRoom');
+      const roomCode = document.getElementById('roomCode');
+      createRoom.addEventListener('click', async () => {
+        await fetch('http://<%= process.env.URL%>/api/v1/game/room/create')
+          .then((res) => res.json())
+          .then((code) => {
+            createRoom.setAttribute('style', 'display: none;');
+            showRoomCode.setAttribute('style', 'display: block!important;');
+            roomCode.innerHTML = code.result;
+          })
+          .catch((e) => console.log(e));
+      });
+    </script>
 </body>
 </html>

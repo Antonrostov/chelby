@@ -1,5 +1,15 @@
 import { userGameHistories } from '../../models';
-class gameHistoryAPIController {
+class gameAPIController {
+  static createRoom = async (req, res) => {
+    let result = '';
+    const ALPHANUM = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const alphanumLength = ALPHANUM.length;
+    const resultLength = 6;
+    for (let i = 0; i < resultLength; i++) {
+      result += ALPHANUM.charAt(Math.floor(Math.random() * alphanumLength));
+    }
+    return res.json({ result });
+  };
   static getGameHistory = async (req, res) => {
     try {
       return await userGameHistories.findAll({
@@ -42,4 +52,4 @@ class gameHistoryAPIController {
     }
   };
 }
-export default gameHistoryAPIController;
+export default gameAPIController;
