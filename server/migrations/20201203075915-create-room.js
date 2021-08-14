@@ -4,14 +4,12 @@ module.exports = {
       roomId: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.UUID,
+        type: Sequelize.STRING(6),
       },
       userId1: {
-        allowNull: false,
         type: Sequelize.UUID,
       },
       userId2: {
-        allowNull: false,
         type: Sequelize.UUID,
       },
       playerOne_status: {

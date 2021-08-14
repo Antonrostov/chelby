@@ -1,14 +1,15 @@
-import { userGameHistories } from '../../models';
+import { userGameHistories, room } from '../../models';
+import utils from '../../utils';
 class gameAPIController {
   static createRoom = async (req, res) => {
-    let result = '';
-    const ALPHANUM = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const alphanumLength = ALPHANUM.length;
-    const resultLength = 6;
-    for (let i = 0; i < resultLength; i++) {
-      result += ALPHANUM.charAt(Math.floor(Math.random() * alphanumLength));
+    try {
+      const roomCode = utils.randomizeString(6);
+      return await room.create({ roomId: roomCode })
+        .then((result) => res.status(201).json({ status: 201, message: result, roomCode }))
+        .catch((error) => res.status(400).json({ error: error.name }));
+    } catch {
+      return res.status(500).json({ status: 500, message: 'Server Internal Error.' });
     }
-    return res.json({ result });
   };
   static getGameHistory = async (req, res) => {
     try {

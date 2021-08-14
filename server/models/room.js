@@ -10,25 +10,23 @@ module.exports = (sequelize, DataTypes) => {
   room.init({
     roomId: {
       primaryKey: true,
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.STRING,
       validate: {
-        isUUID: 4,
+        isAlphanumeric: true,
         notEmpty: true,
+        len: [6, 6],
       },
     },
     userId1: {
       type: DataTypes.UUID,
       validate: {
         isUUID: 4,
-        notEmpty: true,
       },
     },
     userId2: {
       type: DataTypes.UUID,
       validate: {
         isUUID: 4,
-        notEmpty: true,
       },
     },
     playerOne_status: {
