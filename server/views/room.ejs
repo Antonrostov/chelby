@@ -32,12 +32,12 @@
       </div>
     </div>
   </div>
-  <div class="container-fluid room" id="room">
-    <div class="row d-flex flex-row justify-content-center align-items-center">
+  <div class="container room" id="room">
+    <div class="row d-flex flex-row justify-content-center align-items-center topCards">
       <div class="col-4">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Create Room</h4>
+            <h4 class="card-title">CREATE ROOM</h4>
             <button type="submit" class="btn btn-warning createRoom" id="createRoom"><strong>CREATE</strong></button>
             <div id="showRoomCode" hidden>
               ROOM CODE : <strong><span id="roomCode"></span></strong><br>
@@ -49,7 +49,7 @@
       <div class="col-4">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Join Room</h4>
+            <h4 class="card-title">JOIN ROOM</h4>
             <form action="" method="">
               <div class="form-group">
                 <input type="text" class="form-control" id="name" name="name" placeholder="Enter Room Code">
@@ -57,6 +57,37 @@
               <button type="submit" class="btn btn-warning editProfileSubmit"
                 id="editProfileSubmit"><strong>JOIN</strong></button>
             </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row my-5">
+      <div class="col-10 offset-1">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">ROOM LIST</h4>
+            <div class="generatedRooms">
+              <table class="table table-borderless">
+                <thead class="thead-dark">
+                  <tr style="text-align: center;">
+                    <th scope="col">ROOM CODE</th>
+                    <th scope="col">PLAYER 1</th>
+                    <th scope="col">PLAYER 2</th>
+                    <th scope="col">STATUS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for(let i=0; i<rooms.length; i++) { %>
+                    <tr>
+                      <td><%= rooms[i].roomId %></td>
+                      <td><%= rooms[i].playerOne_status %></td>
+                      <td><%= rooms[i].playerTwo_status %></td>
+                      <td><%= rooms[i].status %></td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

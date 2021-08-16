@@ -18,14 +18,15 @@ class authController {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
-          res.cookie('username', data.username);
-          return res.cookie(process.env.TOKEN_COOKIE, `Bearer ${data.token}`, {
+          const cookieOption = {
             httpOnly: true,
             path: '/',
-            expiryDate: new Date(Date.now() + 2 * 60 * 60 * 1000),
+            maxAge: new Date(Date.now() + 2 * 60 * 60 * 1000),
             sameSite: true,
             secure: false,
-          }).redirect('/');
+          };
+          res.cookie('username', data.username, cookieOption);
+          return res.cookie(process.env.TOKEN_COOKIE, `Bearer ${data.token}`, cookieOption).redirect('/');
         }
         return res.status(200).render('login', { title: 'login', login: false, validateError: data.message });
       })

@@ -35,6 +35,10 @@ module.exports = (sequelize, DataTypes) => {
     playerTwo_status: {
       type: DataTypes.STRING,
     },
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: 'empty',
+    },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
   }, {

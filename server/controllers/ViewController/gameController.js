@@ -1,7 +1,17 @@
 import fetch from 'node-fetch';
 class gameController {
   static getGame = (req, res) => res.render('rockpaperscissor', { title: 'Rock Paper Scissor', username: req.cookies.username });
-  static getRoom = (req, res) => res.render('room', { title: 'Rock Paper Scissor', username: req.cookies.username });
+  static getRoom = async (req, res) => {
+    await fetch(`http:
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 200) {
+          return res.render('room', { title: 'Game Room', username: req.cookies.username, rooms: data.result });
+        }
+        return res.render('room', { title: 'Game Room', username: req.cookies.username });
+      })
+      .catch((e) => console.log(e));
+  };
   static getGameHistory = async (req, res) => {
     await fetch(`http:
       .then((res) => res.json())

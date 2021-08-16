@@ -1,6 +1,17 @@
 import { userGameHistories, room } from '../../models';
 import utils from '../../utils';
 class gameAPIController {
+  static getRoom = async (req, res) => {
+    try {
+      return await room.findAll({
+        attributes: ['roomId', 'playerOne_status', 'playerTwo_status', 'status'],
+        order: [['status', 'ASC']],
+      }).then((result) => res.status(200).json({ status: 200, message: 'success', result }))
+        .catch((error) => res.status(400).json({ error: error.name }));
+    } catch {
+      return res.status(500).json({ status: 500, message: 'Server Internal Error.' });
+    }
+  }
   static createRoom = async (req, res) => {
     try {
       const roomCode = utils.randomizeString(6);
