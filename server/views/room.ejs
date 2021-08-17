@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <%- include('./partials/gameHead.ejs') %>
-    <link rel="stylesheet" href="/css/rockpaperscissor/room.css">
+    <link rel="stylesheet" href="/css/game/room.css">
 </head>
 <body>
   <div class="align-items-center customHeader" id="header">
@@ -10,7 +10,7 @@
       <div class="row">
         <div class="col-7 my-2">
           <div class="d-inline-block mr-3">
-            <a href="/">
+            <a href="/game">
               <svg width="40px" height="40px" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="rgb(114,76,33)"
                 xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd"
@@ -18,16 +18,12 @@
               </svg>
             </a>
           </div>
-          <a href="#">
-            <div class="d-inline-block mr-3">
-              <img src="/images/rockpaperscissor/logo.png" width="40px" height="40px" class="" alt="logo">
-            </div>
-          </a>
-          <a href="#">
-            <div class="d-inline-block mx-auto align-middle headerTitle">
-              GAME ROOM
-            </div>
-          </a>
+          <div class="d-inline-block mr-3">
+            <img src="/images/rockpaperscissor/logo.png" width="40px" height="40px" class="" alt="logo">
+          </div>
+          <div class="d-inline-block mx-auto align-middle headerTitle">
+            GAME ROOM
+          </div>
         </div>
       </div>
     </div>
@@ -61,8 +57,8 @@
         </div>
       </div>
     </div>
-    <div class="row my-5">
-      <div class="col-10 offset-1">
+    <div class="row my-3">
+      <div class="col-4 offset-4">
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">ROOM LIST</h4>
@@ -71,23 +67,22 @@
                 <thead class="thead-dark">
                   <tr style="text-align: center;">
                     <th scope="col">ROOM CODE</th>
-                    <th scope="col">PLAYER 1</th>
-                    <th scope="col">PLAYER 2</th>
                     <th scope="col">STATUS</th>
                   </tr>
                 </thead>
                 <tbody>
                   <% for(let i=0; i<rooms.length; i++) { %>
                     <tr>
+                      <% if ( rooms[i].status !== 'full' ) { %>
+                      <td><a href="/game/room/<%= rooms[i].roomId %>"><%= rooms[i].roomId %></a></td>
+                      <% } else { %>
                       <td><%= rooms[i].roomId %></td>
-                      <td><%= rooms[i].playerOne_status %></td>
-                      <td><%= rooms[i].playerTwo_status %></td>
+                      <% } %>
                       <td><%= rooms[i].status %></td>
                     </tr>
                   <% } %>
                 </tbody>
               </table>
-            </div>
           </div>
         </div>
       </div>

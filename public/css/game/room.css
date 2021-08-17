@@ -5,14 +5,18 @@ body, html {
 	background-color: #9c835f;
 	width: 100%;
 }
+a {
+  text-decoration: none!important;
+}
 .customHeader div .d-inline-block {
 	line-height: 2;
 }
-.customHeader a .headerTitle{
+.customHeader .headerTitle{
 	font-size: 30px;
 	font-weight: bold;
 	text-transform: uppercase;
 	color: #ffc107;
+	cursor: context-menu;
 }
 .room .topCards .card {
 	height: 30vh;
@@ -27,6 +31,13 @@ body, html {
 }
 .room .card button {
 	width: 100%;
+}
+.room .generatedRooms {
+	height: 35vh;
+	overflow-y: scroll;
+}
+.room .generatedRooms td {
+	text-align: center;
 }
 #showRoomCode {
 	font-size: 20px;

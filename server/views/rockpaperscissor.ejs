@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<%- include('./partials/gameHead.ejs') %>
-	<link rel="stylesheet" href="/css/rockpaperscissor/game_style.css">
+	<link rel="stylesheet" href="/css/game/rockpaperscissor.css">
 </head>
 <body>
 	<div class="align-items-center customHeader" id="header">
@@ -10,7 +10,7 @@
 			<div class="row">
 				<div class="col-7 my-2">
 					<div class="d-inline-block mr-3">
-						<a href="/">
+						<a href="/game">
 							<svg width="40px" height="40px" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="rgb(114,76,33)"
 								xmlns="http://www.w3.org/2000/svg">
 								<path fill-rule="evenodd"
@@ -18,16 +18,12 @@
 							</svg>
 						</a>
 					</div>
-					<a href="#">
-						<div class="d-inline-block mr-3">
-							<img src="/images/rockpaperscissor/logo.png" width="40px" height="40px" class="" alt="logo">
-						</div>
-					</a>
-					<a href="#">
-						<div class="d-inline-block mx-auto align-middle headerTitle">
-							Rock Paper Scissors
-						</div>
-					</a>
+					<div class="d-inline-block mr-3">
+						<img src="/images/rockpaperscissor/logo.png" width="40px" height="40px" class="" alt="logo">
+					</div>
+					<div class="d-inline-block mx-auto align-middle headerTitle">
+						Rock Paper Scissors
+					</div>
 				</div>
 				<div class="col-5 m-auto text-right">
 					<a href="/game/history">

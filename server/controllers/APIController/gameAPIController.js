@@ -4,7 +4,7 @@ class gameAPIController {
   static getRoom = async (req, res) => {
     try {
       return await room.findAll({
-        attributes: ['roomId', 'playerOne_status', 'playerTwo_status', 'status'],
+        attributes: ['roomId', 'status'],
         order: [['status', 'ASC']],
       }).then((result) => res.status(200).json({ status: 200, message: 'success', result }))
         .catch((error) => res.status(400).json({ error: error.name }));
@@ -22,6 +22,13 @@ class gameAPIController {
       return res.status(500).json({ status: 500, message: 'Server Internal Error.' });
     }
   };
+  static getRoomById = async (req, res) => {
+    try {
+      return res.status(200);
+    } catch {
+      return res.status(500).json({ status: 500, message: 'Server Internal Error.' });
+    }
+  }
   static getGameHistory = async (req, res) => {
     try {
       return await userGameHistories.findAll({
