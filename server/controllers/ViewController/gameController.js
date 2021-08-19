@@ -18,9 +18,9 @@ class gameController {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
-          return res.status(200);
+          console.log(data);
         }
-        return res.status(400);
+        console.log(data);
       })
       .catch((e) => console.log(e));
   }

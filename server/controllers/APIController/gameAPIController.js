@@ -1,4 +1,4 @@
-import { userGameHistories, room } from '../../models';
+import { userGameHistories, room, userGames } from '../../models';
 import utils from '../../utils';
 class gameAPIController {
   static getRoom = async (req, res) => {
@@ -24,7 +24,39 @@ class gameAPIController {
   };
   static getRoomById = async (req, res) => {
     try {
-      return res.status(200);
+      const { roomId } = req.params;
+      const { username } = req.body;
+      return await room.findOne({ where: { roomId } })
+        .then((roomData) => {
+          const requirement1 = !roomData.username1 && roomData.username1 !== username && roomData.username2 !== username;
+          const requirement2 = !roomData.username2 && roomData.username2 !== username && roomData.username1 !== username;
+          if (roomData.status !== 'full') {
+            if (requirement1) {
+              if (roomData.username2) {
+                roomData.update({ username1: username, playerOne_status: 'waiting', status: 'full' })
+                  .then((updated) => res.json({ status: 200, roomInfo: updated.dataValues }))
+                  .catch((error) => res.status(400).json({ error: error.name }));
+              } else {
+                roomData.update({ username1: username, playerOne_status: 'waiting', status: 'waiting' })
+                  .then((updated) => res.json({ status: 200, roomInfo: updated.dataValues }))
+                  .catch((error) => res.status(400).json({ error: error.name }));
+              }
+            } else if (requirement2) {
+              if (roomData.username1) {
+                roomData.update({ username2: username, playerTwo_status: 'waiting', status: 'full' })
+                  .then((updated) => res.json({ status: 200, roomInfo: updated.dataValues }))
+                  .catch((error) => res.status(400).json({ error: error.name }));
+              } else {
+                roomData.update({ username2: username, playerTwo_status: 'waiting', status: 'waiting' })
+                  .then((updated) => res.json({ status: 200, roomInfo: updated.dataValues }))
+                  .catch((error) => res.status(400).json({ error: error.name }));
+              }
+            }
+          } else {
+            res.status(400).json({ message: `Room ${roomId} is full.` });
+          }
+        })
+        .catch((error) => res.status(400).json({ error: error.name }));
     } catch {
       return res.status(500).json({ status: 500, message: 'Server Internal Error.' });
     }

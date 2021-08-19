@@ -6,11 +6,21 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.STRING(6),
       },
-      userId1: {
-        type: Sequelize.UUID,
+      username1: {
+        type: Sequelize.STRING,
+        references: {
+          model: 'userGames',
+          key: 'username',
+        },
+        onDelete: 'set null',
       },
-      userId2: {
-        type: Sequelize.UUID,
+      username2: {
+        type: Sequelize.STRING,
+        references: {
+          model: 'userGames',
+          key: 'username',
+        },
+        onDelete: 'set null',
       },
       playerOne_status: {
         type: Sequelize.STRING,
