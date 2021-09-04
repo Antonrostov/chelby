@@ -16,7 +16,7 @@ class userController {
         if (profile) return res.status(200).json({ status: 200, message: 'Success', profile });
         return res.status(404).json({ status: 404, message: 'Data not found.' });
       })
-        .catch((error) => res.status(400).json({ error: error.name }));
+        .catch((error) => res.status(500).json({ error: error.name }));
     } catch {
       return res.status(500).json({ status: 500, message: 'Internal Server Error.' });
     }
@@ -36,7 +36,7 @@ class userController {
           if (status) { user.update({ status }); }
           return res.status(200).json({ status: 200, message: `Profile ${req.params.id} edited`, user });
         })
-        .catch((error) => res.status(400).json({ error: error.name }));
+        .catch((error) => res.status(500).json({ error: error.name }));
     } catch {
       return res.status(500).json({ status: 500, message: 'Internal Server Error.' });
     }
@@ -50,15 +50,15 @@ class userController {
       const user = await userGames.findOne({
         where: { userId: req.params.id },
       });
-      const validPassword = await bcrypt.compare(oldPassword, user.password);
-      if (!validPassword) {
+      const isValidPassword = await bcrypt.compare(oldPassword, user.password);
+      if (!isValidPassword) {
         return res.status(400).json({ status: 400, message: 'Password is wrong.' });
       }
       const hashedPassword = await bcrypt.hash(password, 10);
-      if (validPassword && password) {
+      if (isValidPassword && password) {
         return await user.update({ password: hashedPassword })
           .then(() => res.status(200).json({ status: 200, message: 'Password changed.' }))
-          .catch((error) => res.status(400).json({ error: error.name }));
+          .catch((error) => res.status(500).json({ error: error.name }));
       }
       return res.status(500);
     } catch {
@@ -72,7 +72,7 @@ class userController {
           if (user) return res.status(200).json({ status: 200, message: `User ${req.body.userId} data deleted.` });
           return res.status(404).json({ status: 404, message: 'Data not found.' });
         })
-        .catch((error) => res.status(400).json({ error: error.name }));
+        .catch((error) => res.status(500).json({ error: error.name }));
     } catch {
       return res.status(403).json({ status: 403, message: 'Failed to delete user data.' });
     }

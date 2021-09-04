@@ -99,8 +99,7 @@
           .then((data) => {
             createRoom.setAttribute('style', 'display: none;');
             showRoomCode.setAttribute('style', 'display: block!important;');
-            console.log(data.roomCode);
-            roomCode.innerHTML = data.roomCode;
+            roomCode.innerHTML = data.ROOM_CODE;
           })
           .catch((e) => console.log(e));
       });

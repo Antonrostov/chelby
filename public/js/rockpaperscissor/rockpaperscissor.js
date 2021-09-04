@@ -69,8 +69,8 @@ class Game {
     xhr.open('POST', '/game/history');
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     const msg = JSON.stringify({
-      player_choice: player.choice,
-      comp_choice: comp.choice,
+      PlayerChoice: player.choice,
+      CompChoice: comp.choice,
       result: this.result,
     });
     xhr.send(msg);

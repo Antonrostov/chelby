@@ -1,9 +1,9 @@
 import jwtAuth from './jwtAuth';
 const verifyToken = (req, res, next) => {
   if (req.cookies.access_token) {
-    const token = req.cookies.access_token.split(' ')[1];
+    const TOKEN = req.cookies.access_token.split(' ')[1];
     return jwtAuth.verify(
-      token,
+      TOKEN,
       (decoded) => {
         req.decoded = decoded;
         next();
