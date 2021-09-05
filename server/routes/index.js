@@ -4,7 +4,7 @@ import apiRouter from './apiRoutes';
 import viewRoutes from './viewRoutes';
 import controller from '../controllers/ViewController/controller';
 const router = express.Router();
-router.get('/', [auth.verifyToken], controller.index);
+router.get('/', [auth.verifyLogin], controller.index);
 router.get('/index', (req, res) => {
   res.redirect('/');
 });

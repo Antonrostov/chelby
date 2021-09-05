@@ -57,12 +57,10 @@ html {
   fill: transparent;
   stroke-width: 0.5;
   stroke: white;
-}
-.playnow .to-gameoption .icon.caretdown path {
   stroke-dasharray: 40;
   stroke-dashoffset: 0;
 }
-.playnow .to-gameoption .icon.caretdown path:hover {
+.playnow .to-gameoption .icon path:hover {
   -webkit-animation: caretdown 1s linear forwards;
           animation: caretdown 1s linear forwards;
 }

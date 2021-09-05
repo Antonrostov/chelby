@@ -34,14 +34,23 @@ class authController {
       if (!isUserValid) return res.status(401).json({ message: 'Username is wrong.' });
       const isPasswordValid = await bcrypt.compare(password, isUserValid.password);
       if (!isPasswordValid) return res.status(401).json({ message: 'Password is wrong.' });
+      const COOKIE_OPTION = {
+        httpOnly: true,
+        maxAge: 2 * 60 * 60 * 1000,
+        sameSite: true,
+        secure: false,
+      };
       return auth.jwtAuth.sign(
         {
           userId: isUserValid.userId,
           username: isUserValid.username,
         },
-        (token) => res.status(200).json({
-          status: 200, message: `User ${isUserValid.username} login.`, userId: isUserValid.userId, username: isUserValid.username, token,
-        }),
+        (token) => res.status(200)
+          .cookie('username', username, COOKIE_OPTION)
+          .cookie(process.env.TOKEN_COOKIE, `Bearer ${token}`, COOKIE_OPTION)
+          .json({
+            status: 200, message: `User ${isUserValid.username} login.`, userId: isUserValid.userId, username: isUserValid.username, token,
+          }),
         () => res.status(500).json({ message: 'Internal Server Error.' }),
       );
     } catch {

@@ -1,16 +1,17 @@
 import jwtAuth from './jwtAuth';
 const verifyToken = (req, res, next) => {
-  if (req.cookies.access_token) {
-    const TOKEN = req.cookies.access_token.split(' ')[1];
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    const TOKEN = authHeader.split(' ')[1];
     return jwtAuth.verify(
       TOKEN,
       (decoded) => {
         req.decoded = decoded;
         next();
       },
-      () => res.redirect('/'),
+      () => res.status(500).json({ message: 'Internal Server Error.' }),
     );
   }
-  return res.redirect('/auth/login');
+  return res.status(401).json({ message: 'Unauthorized.' });
 };
 export default verifyToken;
