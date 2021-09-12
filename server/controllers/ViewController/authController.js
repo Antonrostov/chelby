@@ -19,7 +19,7 @@ class authController {
       .then((data) => {
         if (data.status === 200) {
           const COOKIE_OPTION = {
-            httpOnly: true,
+            httpOnly: false,
             path: '/',
             maxAge: 2 * 60 * 60 * 1000,
             sameSite: true,

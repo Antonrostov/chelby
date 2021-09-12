@@ -94,7 +94,8 @@
       const createRoom = document.getElementById('createRoom');
       const roomCode = document.getElementById('roomCode');
       createRoom.addEventListener('click', async () => {
-        await fetch('http://<%= process.env.URL%>/api/v1/game/room/create')
+        const AUTH_COOKIE = document.cookie.split('; access_token=')[1];
+        await fetch('http://<%= process.env.URL%>/api/v1/game/room/create', { method: 'GET', headers: { 'Content-Type': 'application/json', Authorization: `${AUTH_COOKIE}` } })
           .then((res) => res.json())
           .then((data) => {
             createRoom.setAttribute('style', 'display: none;');

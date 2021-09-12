@@ -62,7 +62,7 @@ class userController {
       }
       return res.status(500);
     } catch {
-      return res.status(404).json({ status: 404, message: 'Failed to change password' });
+      return res.status(500).json({ status: 500, message: 'Failed to change password' });
     }
   };
   static deleteUser = async (req, res) => {

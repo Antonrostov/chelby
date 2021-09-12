@@ -13,7 +13,7 @@ class gameController {
       })
       .catch((e) => console.log(e));
   };
-  static getRoomById = async (req, res) => {
+  static enterRoomById = async (req, res) => {
     await fetch(`http:
       .then((res) => res.json())
       .then((data) => {
